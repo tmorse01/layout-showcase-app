@@ -45,9 +45,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "entity-detail",
-    name: "Entity Detail (Sticky Sub-Header)",
+    name: "Entity Detail",
     description:
-      "Page-specific header with actions and status that stays visible while scrolling a long record.",
+      "Page-specific header with actions and status that stays visible while scrolling a long record. Features a sticky sub-header pattern.",
     tier: "essential",
     route: "/layouts/entity-detail",
     useCases: ["Record detail pages", "Product pages", "User profiles"],
@@ -67,9 +67,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "form-workflow",
-    name: "Form-Centric Workflow",
+    name: "Form Workflow",
     description:
-      "Step-based or sectioned form layout with clear progress and persistent actions.",
+      "Step-based or sectioned form layout with clear progress and persistent actions. Form-centric workflow pattern.",
     tier: "essential",
     route: "/layouts/form-workflow",
     useCases: ["Multi-step forms", "Wizards", "Data entry"],
@@ -79,9 +79,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   // Top 10 (Modern Set) - Adds 5 more
   {
     id: "collapsible-sidebar",
-    name: "Collapsible Sidebar App Shell",
+    name: "Collapsible Sidebar",
     description:
-      "App shell where the left nav can collapse to icons for focus or smaller screens.",
+      "App shell where the left nav can collapse to icons for focus or smaller screens. Collapsible sidebar app shell pattern.",
     tier: "modern",
     route: "/layouts/collapsible-sidebar",
     useCases: [
@@ -98,9 +98,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "tabbed-content",
-    name: "Tabbed Content Layout",
+    name: "Tabbed Content",
     description:
-      "Horizontal tabs used to switch between related views within the same entity.",
+      "Horizontal tabs used to switch between related views within the same entity. Tabbed content layout pattern.",
     tier: "modern",
     route: "/layouts/tabbed-content",
     useCases: [
@@ -113,9 +113,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "split-view",
-    name: "Split View (Resizable Panels)",
+    name: "Split View",
     description:
-      "Two or more resizable panes allowing users to control how space is allocated.",
+      "Two or more resizable panes allowing users to control how space is allocated. Features resizable panels with drag handles.",
     tier: "modern",
     route: "/layouts/split-view",
     useCases: ["Code editors", "Design tools", "Data analysis"],
@@ -135,9 +135,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "search-driven",
-    name: "Search-Driven Layout",
+    name: "Search Driven",
     description:
-      "Global or page-level search as the primary entry point into content.",
+      "Global or page-level search as the primary entry point into content. Search-driven layout pattern.",
     tier: "modern",
     route: "/layouts/search-driven",
     useCases: ["Search interfaces", "Documentation", "Content discovery"],
@@ -147,9 +147,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   // Top 15 (Advanced/Specialized) - Adds 5 more
   {
     id: "right-inspector",
-    name: "Right-Side Inspector Layout",
+    name: "Right Inspector",
     description:
-      "Contextual details or settings shown in a toggleable right sidebar.",
+      "Contextual details or settings shown in a toggleable right sidebar. Right-side inspector layout pattern.",
     tier: "advanced",
     route: "/layouts/right-inspector",
     useCases: ["Design tools", "Property panels", "Contextual help"],
@@ -162,9 +162,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "command-centered",
-    name: "Command-Centered Layout",
+    name: "Command Centered",
     description:
-      "Minimal UI relying on command palettes or keyboard-first interactions.",
+      "Minimal UI relying on command palettes or keyboard-first interactions. Command-centered layout pattern.",
     tier: "advanced",
     route: "/layouts/command-centered",
     useCases: [
@@ -177,9 +177,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "focus-mode",
-    name: "Full-Screen Focus Mode",
+    name: "Focus Mode",
     description:
-      "Distraction-free layout that hides navigation for editing or reviewing.",
+      "Distraction-free layout that hides navigation for editing or reviewing. Full-screen focus mode pattern.",
     tier: "advanced",
     route: "/layouts/focus-mode",
     useCases: ["Writing interfaces", "Review modes", "Presentation views"],
@@ -188,8 +188,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "timeline",
-    name: "Timeline / Activity Layout",
-    description: "Chronological layout for logs, histories, or workflows.",
+    name: "Timeline",
+    description:
+      "Chronological layout for logs, histories, or workflows. Timeline and activity layout pattern.",
     tier: "advanced",
     route: "/layouts/timeline",
     useCases: ["Activity feeds", "Event logs", "Workflow visualization"],
@@ -198,9 +199,9 @@ export const layoutMetadata: LayoutMetadata[] = [
   },
   {
     id: "kanban",
-    name: "Kanban / Board Layout",
+    name: "Kanban",
     description:
-      "Column-based layout optimized for drag-and-drop workflow management.",
+      "Column-based layout optimized for drag-and-drop workflow management. Kanban board layout pattern.",
     tier: "advanced",
     route: "/layouts/kanban",
     useCases: ["Project management", "Task boards", "Workflow visualization"],

@@ -3,7 +3,11 @@ import type { AppFrameConfig } from "../../types/layout";
 import styles from "./AppFrame.module.css";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { PageHeader } from "../PageHeader/PageHeader";
-import { Navigation } from "../Navigation/Navigation";
+import {
+  Navigation,
+  type NavigationItem,
+  type NavigationGroup,
+} from "../Navigation/Navigation";
 import { RightRail } from "../RightRail/RightRail";
 import { useHighlight } from "../../contexts/HighlightContext";
 
@@ -13,9 +17,11 @@ export interface AppFrameProps extends AppFrameConfig {
   appHeaderContent?: ReactNode;
   /** Content for the page header */
   pageHeaderContent?: ReactNode;
-  /** Navigation items */
-  navItems?: Array<{ label: string; path: string; icon?: ReactNode }>;
-  /** Custom navigation/sidebar content (overrides navItems) */
+  /** Navigation items (flat list) */
+  navItems?: NavigationItem[];
+  /** Navigation groups (grouped by section) */
+  navGroups?: NavigationGroup[];
+  /** Custom navigation/sidebar content (overrides navItems/navGroups) */
   navContent?: ReactNode;
   /** Content for the right rail */
   rightRailContent?: ReactNode;
@@ -53,6 +59,7 @@ export function AppFrame({
   appHeaderContent,
   pageHeaderContent,
   navItems = [],
+  navGroups,
   navContent,
   rightRailContent,
   onNavToggle,
@@ -101,7 +108,11 @@ export function AppFrame({
       {showNav && (
         <div className={navClasses}>
           {navContent || (
-            <Navigation items={navItems} collapsed={navCollapsed} />
+            <Navigation
+              items={navGroups ? undefined : navItems}
+              groups={navGroups}
+              collapsed={navCollapsed}
+            />
           )}
           {highlightEnabled && (
             <div className={styles.highlightOverlay} data-label="Sidebar">

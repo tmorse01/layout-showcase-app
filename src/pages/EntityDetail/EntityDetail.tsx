@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./EntityDetail.module.css";
 
@@ -41,7 +41,7 @@ export function EntityDetail() {
       showAppHeader
       showPageHeader
       showNav
-      navItems={defaultNavItems}
+      navGroups={defaultNavGroups}
       pageHeaderContent={
         <PageHeader
           title="Product #PRD-2024-001"

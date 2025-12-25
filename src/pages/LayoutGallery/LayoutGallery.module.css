@@ -96,7 +96,7 @@
   }
 
   .card {
-    min-height: 220px;
+    min-height: 300px;
     padding: 20px;
   }
 }
@@ -115,7 +115,7 @@
   position: relative;
   overflow: hidden;
   background-color: var(--mui-palette-background-paper);
-  min-height: 240px;
+  min-height: 320px;
 }
 
 .card::before {
@@ -190,6 +190,28 @@
   color: var(--mui-palette-text-secondary);
   font-size: 0.9rem;
   min-height: 48px;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.metadataLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mui-palette-text-secondary);
+}
+
+.metadataChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
 }
 
 .cardFooter {

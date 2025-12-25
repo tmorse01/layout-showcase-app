@@ -20,7 +20,7 @@ import {
   VideoLibrary,
   Folder,
 } from "@mui/icons-material";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./SearchDriven.module.css";
 
@@ -212,7 +212,7 @@ export function SearchDriven() {
   const hasActiveFilters = searchQuery !== "" || selectedCategory !== "All" || selectedTags.length > 0;
 
   return (
-    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Prominent Search Bar */}
         <div className={styles.searchSection}>

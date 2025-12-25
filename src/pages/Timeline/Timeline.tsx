@@ -1,5 +1,5 @@
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import {
   Paper,
   Typography,
@@ -330,7 +330,7 @@ export function Timeline() {
   const sortedDates = Array.from(groupedEvents.keys());
 
   return (
-    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Page Title */}
         <div className={styles.header}>

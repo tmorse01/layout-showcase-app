@@ -1,154 +1,118 @@
 import {
-  Dashboard as DashboardIcon,
-  Settings as SettingsIcon,
-  Person as PersonIcon,
-  Folder as FolderIcon,
-  Analytics as AnalyticsIcon,
-  People as PeopleIcon,
-  Notifications as NotificationsIcon,
-  Security as SecurityIcon,
-  CreditCard as CreditCardIcon,
-  Help as HelpIcon,
-  Description as DescriptionIcon,
-  CalendarToday as CalendarIcon,
-  BarChart as BarChartIcon,
-  Inventory as InventoryIcon,
-  Email as EmailIcon,
+  ViewSidebar,
+  Dashboard,
+  Article,
+  ViewColumn,
+  Assignment,
+  Menu,
+  Tab,
+  Splitscreen,
+  TableChart,
+  Search,
+  Info,
+  Keyboard,
+  Fullscreen,
+  Timeline,
+  ViewKanban,
 } from "@mui/icons-material";
-import type { NavigationItem } from "../components/Navigation/Navigation";
+import type {
+  NavigationItem,
+  NavigationGroup,
+} from "../components/Navigation/Navigation";
+import { layoutMetadata } from "./layoutVariants";
+
+// Map layout IDs to icons
+const layoutIcons: Record<string, React.ReactNode> = {
+  "classic-app-shell": <ViewSidebar />,
+  "dashboard-grid": <Dashboard />,
+  "entity-detail": <Article />,
+  "master-detail": <ViewColumn />,
+  "form-workflow": <Assignment />,
+  "collapsible-sidebar": <Menu />,
+  "tabbed-content": <Tab />,
+  "split-view": <Splitscreen />,
+  "table-first": <TableChart />,
+  "search-driven": <Search />,
+  "right-inspector": <Info />,
+  "command-centered": <Keyboard />,
+  "focus-mode": <Fullscreen />,
+  timeline: <Timeline />,
+  kanban: <ViewKanban />,
+};
 
 /**
- * Default sidebar navigation items
- *
- * Provides example navigation data that can be used across layouts with sidebars.
- * Includes common navigation items with icons for typical SaaS/admin applications.
+ * Generate navigation items from layout metadata
  */
-export const defaultNavItems: NavigationItem[] = [
-  {
-    label: "Dashboard",
-    path: "/layouts/dashboard-grid",
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Projects",
-    path: "/layouts/master-detail",
-    icon: <FolderIcon />,
-  },
-  {
-    label: "Analytics",
-    path: "/layouts/table-first",
-    icon: <AnalyticsIcon />,
-  },
-  {
-    label: "Team",
-    path: "/layouts/entity-detail",
-    icon: <PeopleIcon />,
-  },
-  {
-    label: "Documents",
-    path: "/layouts/tabbed-content",
-    icon: <DescriptionIcon />,
-  },
-  {
-    label: "Calendar",
-    path: "/layouts/timeline",
-    icon: <CalendarIcon />,
-  },
-  {
-    label: "Reports",
-    path: "/layouts/split-view",
-    icon: <BarChartIcon />,
-  },
-  {
-    label: "Inventory",
-    path: "/layouts/kanban",
-    icon: <InventoryIcon />,
-  },
-  {
-    label: "Messages",
-    path: "/layouts/search-driven",
-    icon: <EmailIcon />,
-  },
-  {
-    label: "Notifications",
-    path: "/layouts/right-inspector",
-    icon: <NotificationsIcon />,
-  },
-  {
-    label: "Settings",
-    path: "/layouts/classic-app-shell",
-    icon: <SettingsIcon />,
-  },
-  {
-    label: "Security",
-    path: "/layouts/form-workflow",
-    icon: <SecurityIcon />,
-  },
-  {
-    label: "Billing",
-    path: "/layouts/collapsible-sidebar",
-    icon: <CreditCardIcon />,
-  },
-  {
-    label: "Profile",
-    path: "/layouts/entity-detail",
-    icon: <PersonIcon />,
-  },
-  {
-    label: "Help",
-    path: "/layouts/command-centered",
-    icon: <HelpIcon />,
-  },
-];
+function createNavItemsFromLayouts(
+  layouts: typeof layoutMetadata
+): NavigationItem[] {
+  return layouts.map((layout) => ({
+    label: layout.name,
+    path: layout.route,
+    icon: layoutIcons[layout.id],
+  }));
+}
+
+/**
+ * Generate navigation groups by tier
+ */
+function createNavGroupsByTier(): NavigationGroup[] {
+  const essential = layoutMetadata.filter((l) => l.tier === "essential");
+  const modern = layoutMetadata.filter((l) => l.tier === "modern");
+  const advanced = layoutMetadata.filter((l) => l.tier === "advanced");
+
+  const groups: NavigationGroup[] = [];
+
+  if (essential.length > 0) {
+    groups.push({
+      label: "Essential Layouts",
+      items: createNavItemsFromLayouts(essential),
+    });
+  }
+
+  if (modern.length > 0) {
+    groups.push({
+      label: "Modern Set",
+      items: createNavItemsFromLayouts(modern),
+    });
+  }
+
+  if (advanced.length > 0) {
+    groups.push({
+      label: "Advanced & Specialized",
+      items: createNavItemsFromLayouts(advanced),
+    });
+  }
+
+  return groups;
+}
+
+/**
+ * Default sidebar navigation items grouped by tier
+ *
+ * Provides navigation data that matches the layout showcase grouping.
+ * Items are organized by Essential, Modern Set, and Advanced & Specialized tiers.
+ */
+export const defaultNavGroups: NavigationGroup[] = createNavGroupsByTier();
+
+/**
+ * Default sidebar navigation items (flat list, for backwards compatibility)
+ */
+export const defaultNavItems: NavigationItem[] =
+  createNavItemsFromLayouts(layoutMetadata);
 
 /**
  * Minimal navigation items (for simpler layouts)
+ * Includes only the first 3 essential layouts
  */
-export const minimalNavItems: NavigationItem[] = [
-  {
-    label: "Dashboard",
-    path: "/layouts/dashboard-grid",
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Projects",
-    path: "/layouts/master-detail",
-    icon: <FolderIcon />,
-  },
-  {
-    label: "Settings",
-    path: "/layouts/classic-app-shell",
-    icon: <SettingsIcon />,
-  },
-];
+export const minimalNavItems: NavigationItem[] = createNavItemsFromLayouts(
+  layoutMetadata.filter((l) => l.tier === "essential").slice(0, 3)
+);
 
 /**
  * Primary navigation items (most commonly used)
+ * Includes all essential layouts
  */
-export const primaryNavItems: NavigationItem[] = [
-  {
-    label: "Dashboard",
-    path: "/layouts/dashboard-grid",
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Projects",
-    path: "/layouts/master-detail",
-    icon: <FolderIcon />,
-  },
-  {
-    label: "Analytics",
-    path: "/layouts/table-first",
-    icon: <AnalyticsIcon />,
-  },
-  {
-    label: "Team",
-    path: "/layouts/entity-detail",
-    icon: <PeopleIcon />,
-  },
-  {
-    label: "Settings",
-    path: "/layouts/classic-app-shell",
-    icon: <SettingsIcon />,
-  },
-];
+export const primaryNavItems: NavigationItem[] = createNavItemsFromLayouts(
+  layoutMetadata.filter((l) => l.tier === "essential")
+);

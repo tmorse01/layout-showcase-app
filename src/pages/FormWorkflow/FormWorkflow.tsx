@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import {
   Button,
   Paper,
@@ -496,7 +496,7 @@ export function FormWorkflow() {
       showAppHeader
       showPageHeader
       showNav
-      navItems={defaultNavItems}
+      navGroups={defaultNavGroups}
       pageHeaderContent={
         <PageHeader
           title={steps[activeStep]}

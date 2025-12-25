@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import {
   Paper,
   Typography,
@@ -200,7 +200,7 @@ export function TableFirst() {
   };
 
   return (
-    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Page Header */}
         <div className={styles.pageHeader}>

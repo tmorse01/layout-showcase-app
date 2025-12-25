@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import {
   Paper,
   Typography,
@@ -181,7 +181,7 @@ export function SplitView() {
   };
 
   return (
-    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Split View Container */}
         <div className={styles.splitContainer}>

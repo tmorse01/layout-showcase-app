@@ -27,7 +27,7 @@ import {
   Language,
   Palette,
 } from "@mui/icons-material";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./TabbedContent.module.css";
 
@@ -76,7 +76,7 @@ export function TabbedContent() {
       showAppHeader
       showPageHeader
       showNav
-      navItems={defaultNavItems}
+      navGroups={defaultNavGroups}
       pageHeaderContent={
         <PageHeader
           title="Account Settings"

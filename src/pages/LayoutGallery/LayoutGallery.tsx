@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Paper, Typography, Chip, Box } from "@mui/material";
+import { Paper, Typography, Chip, Box, Tooltip, Popover } from "@mui/material";
 import {
   Dashboard,
   ViewSidebar,
@@ -204,6 +204,126 @@ export function LayoutGallery() {
   );
 }
 
+function FeaturesFooter({ features }: { features: string[] }) {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const open = Boolean(anchorEl);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const visibleFeatures = features.slice(0, 3);
+
+  return (
+    <>
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        className={styles.featureCount}
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+        sx={{ cursor: "help" }}
+      >
+        {features.length} features
+      </Typography>
+      <Popover
+        id="features-popover"
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+        sx={{
+          pointerEvents: "none",
+        }}
+        PaperProps={{
+          onMouseEnter: handlePopoverOpen,
+          onMouseLeave: handlePopoverClose,
+          sx: {
+            pointerEvents: "auto",
+            p: 1.5,
+            maxWidth: 280,
+          },
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            fontSize: "0.7rem",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+            color: "var(--mui-palette-text-secondary)",
+            mb: 1,
+            display: "block",
+          }}
+        >
+          Features:
+        </Typography>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mb: 1 }}>
+          {visibleFeatures.map((feature, idx) => (
+            <Chip
+              key={idx}
+              label={feature}
+              size="small"
+              variant="outlined"
+              sx={{
+                fontSize: "0.65rem",
+                height: "20px",
+                borderColor: "var(--mui-palette-divider)",
+                color: "var(--mui-palette-text-secondary)",
+              }}
+            />
+          ))}
+        </Box>
+        {features.length > 3 && (
+          <>
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: "0.7rem",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                color: "var(--mui-palette-text-secondary)",
+                mb: 1,
+                display: "block",
+              }}
+            >
+              All Features:
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+              {features.map((feature, idx) => (
+                <Typography
+                  key={idx}
+                  variant="body2"
+                  sx={{
+                    fontSize: "0.8rem",
+                    color: "var(--mui-palette-text-primary)",
+                  }}
+                >
+                  • {feature}
+                </Typography>
+              ))}
+            </Box>
+          </>
+        )}
+      </Popover>
+    </>
+  );
+}
+
 function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
   const icon = layoutIcons[layout.id];
   const tierColor = tierColors[layout.tier];
@@ -257,6 +377,45 @@ function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
         >
           {layout.description}
         </Typography>
+
+        {/* Use Cases */}
+        {layout.useCases && layout.useCases.length > 0 && (
+          <Box className={styles.metadata}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              className={styles.metadataLabel}
+            >
+              Use cases:
+            </Typography>
+            <Box className={styles.metadataChips}>
+              {layout.useCases.slice(0, 3).map((useCase, idx) => (
+                <Chip
+                  key={idx}
+                  label={useCase}
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    fontSize: "0.65rem",
+                    height: "20px",
+                    borderColor: "var(--mui-palette-divider)",
+                    color: "var(--mui-palette-text-secondary)",
+                  }}
+                />
+              ))}
+              {layout.useCases.length > 3 && (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ fontSize: "0.65rem" }}
+                >
+                  +{layout.useCases.length - 3} more
+                </Typography>
+              )}
+            </Box>
+          </Box>
+        )}
+
       </Box>
 
       <Box className={styles.cardFooter}>
@@ -267,13 +426,9 @@ function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
             variant="outlined"
             sx={{ fontSize: "0.7rem", height: "22px" }}
           />
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            className={styles.featureCount}
-          >
-            {layout.features.length} features
-          </Typography>
+          {layout.features && layout.features.length > 0 && (
+            <FeaturesFooter features={layout.features} />
+          )}
         </Box>
         <Box className={`${styles.cardArrow} cardArrow`}>
           <ArrowForward fontSize="small" />

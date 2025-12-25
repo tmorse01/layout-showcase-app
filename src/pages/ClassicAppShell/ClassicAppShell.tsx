@@ -16,9 +16,6 @@ import {
   Box,
 } from "@mui/material";
 import {
-  Dashboard as DashboardIcon,
-  Settings as SettingsIcon,
-  Person as PersonIcon,
   Security as SecurityIcon,
   Notifications as NotificationsIcon,
   CreditCard as CreditCardIcon,
@@ -30,21 +27,8 @@ import {
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { defaultNavGroups } from "../../config/sidebarData";
 import styles from "./ClassicAppShell.module.css";
-
-const navItems = [
-  {
-    label: "Dashboard",
-    path: "/layouts/dashboard-grid",
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Settings",
-    path: "/layouts/classic-app-shell",
-    icon: <SettingsIcon />,
-  },
-  { label: "Profile", path: "/layouts/entity-detail", icon: <PersonIcon /> },
-];
 
 export function ClassicAppShell() {
   useDocumentTitle("Classic App Shell - Layout Showcase");
@@ -147,7 +131,7 @@ export function ClassicAppShell() {
   };
 
   return (
-    <AppFrame showAppHeader showNav navItems={navItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Page Header */}
         <div className={styles.header}>

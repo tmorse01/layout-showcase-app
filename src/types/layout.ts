@@ -32,6 +32,7 @@ export interface AppFrameConfig {
 export interface LayoutMetadata {
   id: string;
   name: string;
+  shortName?: string; // Short name for sidebar navigation (max ~18 chars like "Classic App Shell")
   description: string;
   tier: 'essential' | 'modern' | 'advanced';
   route: string;

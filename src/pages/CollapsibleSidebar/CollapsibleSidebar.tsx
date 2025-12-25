@@ -20,7 +20,7 @@ import {
   Warning as WarningIcon,
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./CollapsibleSidebar.module.css";
 
@@ -97,7 +97,7 @@ export function CollapsibleSidebar() {
     <AppFrame
       showAppHeader
       showNav
-      navItems={defaultNavItems}
+      navGroups={defaultNavGroups}
       navCollapsed={collapsed}
       onNavToggle={() => setCollapsed(!collapsed)}
     >

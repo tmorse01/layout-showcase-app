@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import {
   Paper,
   Typography,
@@ -529,7 +529,7 @@ export function Kanban() {
   );
 
   return (
-    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
+    <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Board Header */}
         <div className={styles.header}>

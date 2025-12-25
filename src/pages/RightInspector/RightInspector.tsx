@@ -23,7 +23,7 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
-import { defaultNavItems } from "../../config/sidebarData";
+import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./RightInspector.module.css";
 
@@ -168,7 +168,7 @@ export function RightInspector() {
     <AppFrame
       showAppHeader
       showNav
-      navItems={defaultNavItems}
+      navGroups={defaultNavGroups}
       showRightRail={showRightRail}
       onRightRailToggle={() => setShowRightRail(!showRightRail)}
       rightRailContent={
