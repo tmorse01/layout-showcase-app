@@ -1,61 +1,238 @@
 .gallery {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-xl);
+  width: 100%;
+  min-width: 0; /* Allow grid to shrink below content size */
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-.header {
-  margin-bottom: var(--spacing-xl);
+/* Page Header */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  /* Use MUI CSS variable for theme-aware divider */
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  /* Use MUI CSS variable for theme-aware text */
+  color: var(--mui-palette-text-primary);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
   text-align: center;
+  gap: 12px;
 }
 
+/* Section Styles */
 .section {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: 48px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
 }
 
 .sectionTitle {
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 2px solid #e0e0e0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* Use MUI CSS variable for theme-aware text */
+  color: var(--mui-palette-text-primary);
+  margin: 0;
 }
 
+/* Grid Layout */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
 }
 
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 220px;
+    padding: 20px;
+  }
+}
+
+/* Card Styles */
 .card {
-  padding: var(--spacing-md);
+  padding: 24px;
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 16px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Use MUI CSS variables for theme-aware colors */
+  border: 1px solid var(--mui-palette-divider);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--mui-palette-background-paper);
+  min-height: 240px;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 0, 0, 0.03) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
   text-decoration: none;
+  border-color: transparent;
 }
 
-.cardHeader {
+.card:hover::before {
+  opacity: 1;
+}
+
+.cardIconContainer {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--spacing-sm);
+  margin-bottom: 8px;
+}
+
+.cardIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--mui-palette-action-hover);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 28px;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  /* Use MUI CSS variable for theme-aware text color - important to override Typography defaults */
+  color: var(--mui-palette-text-primary) !important;
+  margin: 0;
 }
 
 .description {
   flex: 1;
-  min-height: 60px;
+  line-height: 1.6;
+  /* Use MUI CSS variable for theme-aware secondary text */
+  color: var(--mui-palette-text-secondary);
+  font-size: 0.9rem;
+  min-height: 48px;
 }
 
-.features {
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  /* Use MUI CSS variable for theme-aware divider */
+  border-top: 1px solid var(--mui-palette-divider);
   margin-top: auto;
-  padding-top: var(--spacing-sm);
-  border-top: 1px solid #f0f0f0;
 }
 
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.featureCount {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.cardArrow {
+  /* Use MUI CSS variable for theme-aware primary color */
+  color: var(--mui-palette-primary-main);
+  opacity: 0.6;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark mode styles are now handled by MUI CSS variables automatically */
+/* No need for @media (prefers-color-scheme: dark) since we're using CSS variables */

@@ -4,8 +4,9 @@
   justify-content: space-between;
   height: 100%;
   padding: 0 var(--spacing-md);
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  /* Use MUI CSS variables for theme-aware colors */
+  background-color: var(--mui-palette-background-paper);
+  border-bottom: 1px solid var(--mui-palette-divider);
 }
 
 .left {
@@ -23,7 +24,8 @@
 .logo {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1976d2;
+  /* Use MUI primary color for theme-aware branding */
+  color: var(--mui-palette-primary-main);
   text-decoration: none;
 }
 

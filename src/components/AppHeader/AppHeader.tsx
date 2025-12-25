@@ -1,7 +1,14 @@
-import { Menu as MenuIcon } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import styles from './AppHeader.module.css';
+import {
+  Menu as MenuIcon,
+  Brightness4,
+  Brightness7,
+  Label as LabelIcon,
+} from "@mui/icons-material";
+import { IconButton, Typography, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
+import { useHighlight } from "../../contexts/HighlightContext";
+import styles from "./AppHeader.module.css";
 
 export interface AppHeaderProps {
   /** Callback when nav toggle button is clicked (mobile) */
@@ -12,12 +19,18 @@ export interface AppHeaderProps {
 
 /**
  * AppHeader - Fixed global header component
- * 
+ *
  * Height: 64px (max 80px)
  * Use when: Navigation and global actions need constant visibility
  * Contains: App logo, global nav, user menu, notifications
  */
-export function AppHeader({ onNavToggle, logo = 'Layout Showcase' }: AppHeaderProps) {
+export function AppHeader({
+  onNavToggle,
+  logo = "Layout Showcase",
+}: AppHeaderProps) {
+  const { mode, toggleMode } = useTheme();
+  const { enabled: highlightEnabled, toggle: toggleHighlight } = useHighlight();
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -37,9 +50,27 @@ export function AppHeader({ onNavToggle, logo = 'Layout Showcase' }: AppHeaderPr
         </Link>
       </div>
       <div className={styles.right}>
-        {/* User menu, notifications, etc. can go here */}
+        <Tooltip
+          title={
+            highlightEnabled ? "Hide section labels" : "Show section labels"
+          }
+        >
+          <IconButton
+            onClick={toggleHighlight}
+            aria-label="Toggle section highlights"
+            color={highlightEnabled ? "primary" : "inherit"}
+          >
+            <LabelIcon />
+          </IconButton>
+        </Tooltip>
+        <IconButton
+          onClick={toggleMode}
+          aria-label="Toggle theme"
+          color="inherit"
+        >
+          {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
+        </IconButton>
       </div>
     </header>
   );
 }
-

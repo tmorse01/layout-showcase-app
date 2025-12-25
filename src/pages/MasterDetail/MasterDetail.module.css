@@ -1,0 +1,251 @@
+/**
+ * Master-Detail Layout
+ * 
+ * Demonstrates:
+ * - Split view with list on left, detail on right
+ * - Synchronized selection (clicking list item shows details)
+ * - Fast item inspection without navigation
+ * - CSS Grid for split layout
+ * - Responsive behavior
+ */
+
+.container {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--spacing-md);
+  height: 100%;
+  padding: 0;
+}
+
+/* Master Panel - Left Side */
+.masterPanel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--mui-palette-background-paper);
+}
+
+.masterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.masterList {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.listItem {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.listItem:hover {
+  background-color: color-mix(in srgb, var(--mui-palette-text-primary) 4%, transparent);
+}
+
+.listItem[aria-selected='true'] {
+  background-color: var(--mui-palette-primary-main);
+  background-color: color-mix(in srgb, var(--mui-palette-primary-main) 8%, transparent);
+  border-left: 3px solid var(--mui-palette-primary-main);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing-sm);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-weight: 600;
+}
+
+.listItemPrimary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.statusChip {
+  height: 20px;
+  font-size: 0.65rem;
+}
+
+.listItemSecondary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Detail Panel - Right Side */
+.detailPanel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--mui-palette-background-paper);
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--spacing-md);
+}
+
+.detailTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.detailAvatar {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.detailActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.detailContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.sectionTitle {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--mui-palette-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.infoIcon {
+  color: var(--mui-palette-text-secondary);
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.activityIcon {
+  color: var(--mui-palette-text-secondary);
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+.activityContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .masterPanel {
+    max-height: 300px;
+    border-bottom: 1px solid var(--mui-palette-divider);
+  }
+
+  .detailPanel {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .masterHeader,
+  .detailHeader,
+  .detailContent {
+    padding: var(--spacing-sm);
+  }
+
+  .detailTitle {
+    gap: var(--spacing-sm);
+  }
+
+  .detailAvatar {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .actionButtons button {
+    width: 100%;
+  }
+}
+

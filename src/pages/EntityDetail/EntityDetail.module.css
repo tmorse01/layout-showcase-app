@@ -1,0 +1,157 @@
+/**
+ * Entity Detail Layout Styles
+ * 
+ * Demonstrates sticky page header pattern with long scrollable content.
+ * The page header remains visible while scrolling, keeping actions accessible.
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--mui-palette-background-default);
+}
+
+/* Tabs Container */
+.tabsContainer {
+  background-color: var(--mui-palette-background-paper);
+  border-bottom: 1px solid var(--mui-palette-divider);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md))
+    var(--spacing-md);
+  padding: 0 var(--spacing-md);
+}
+
+/* Tab Content Area */
+.tabContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.tabPanel {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Info Grid - Overview Tab */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.infoCard {
+  padding: var(--spacing-md);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 4px;
+}
+
+.infoCard > *:first-child {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Content Sections */
+.contentSection {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 4px;
+}
+
+/* Details List */
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.detailLabel {
+  font-weight: 500;
+  color: var(--mui-palette-text-secondary);
+}
+
+.detailValue {
+  color: var(--mui-palette-text-primary);
+}
+
+/* History List */
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+}
+
+.historyItem {
+  padding: var(--spacing-md);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 4px;
+}
+
+.historyContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Relations Grid */
+.relationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.relationCard {
+  padding: var(--spacing-md);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 4px;
+  min-height: 120px;
+}
+
+/* Settings Sections */
+.settingSection {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background-color: var(--mui-palette-background-paper);
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailRow {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+
+  .relationsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabsContainer {
+    margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md))
+      var(--spacing-md);
+  }
+}
