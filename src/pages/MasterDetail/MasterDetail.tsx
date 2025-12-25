@@ -25,6 +25,7 @@ import {
   Delete,
   MoreVert,
 } from "@mui/icons-material";
+import { defaultNavItems } from "../../config/sidebarData";
 import styles from "./MasterDetail.module.css";
 
 // Sample data for master list
@@ -126,7 +127,7 @@ export function MasterDetail() {
   const selectedContact = contacts.find((c) => c.id === selectedId) || null;
 
   return (
-    <AppFrame showAppHeader showNav>
+    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
       <div className={styles.container}>
         {/* Master List - Left Panel */}
         <Paper className={styles.masterPanel} elevation={1}>

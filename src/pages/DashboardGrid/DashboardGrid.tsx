@@ -18,6 +18,7 @@ import {
   ArrowDownward,
   MoreVert,
 } from "@mui/icons-material";
+import { defaultNavItems } from "../../config/sidebarData";
 import styles from "./DashboardGrid.module.css";
 
 export function DashboardGrid() {
@@ -75,7 +76,7 @@ export function DashboardGrid() {
   ];
 
   return (
-    <AppFrame showAppHeader showNav>
+    <AppFrame showAppHeader showNav navItems={defaultNavItems}>
       <div className={styles.container}>
         {/* Page Title Section */}
         <div className={styles.header}>

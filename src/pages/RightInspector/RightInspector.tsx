@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { AppFrame } from '../../components/AppFrame/AppFrame';
+import { useState } from "react";
+import { AppFrame } from "../../components/AppFrame/AppFrame";
+import { BackToShowcase } from "../../components/BackToShowcase/BackToShowcase";
+import { defaultNavItems } from "../../config/sidebarData";
 
 export function RightInspector() {
   const [showRightRail, setShowRightRail] = useState(true);
@@ -8,15 +10,18 @@ export function RightInspector() {
     <AppFrame
       showAppHeader
       showNav
+      navItems={defaultNavItems}
       showRightRail={showRightRail}
       onRightRailToggle={() => setShowRightRail(!showRightRail)}
     >
-      <div style={{ padding: '24px' }}>
+      <div style={{ padding: "24px" }}>
+        <BackToShowcase />
         <h1>Right-Side Inspector Layout</h1>
-        <p>Contextual details or settings shown in a toggleable right sidebar.</p>
+        <p>
+          Contextual details or settings shown in a toggleable right sidebar.
+        </p>
         {/* TODO: Implement inspector panel */}
       </div>
     </AppFrame>
   );
 }
-

@@ -3,33 +3,32 @@
  * 
  * Demonstrates:
  * - Multi-step form with progress indicator
- * - Sticky action bar for persistent navigation
+ * - Fixed action bar for persistent navigation
  * - Step-based workflow with validation
  * - Page header with contextual actions
+ * - Proper overflow handling for long forms
  */
 
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
   height: 100%;
-  padding-bottom: calc(
-    var(--spacing-md) + 80px
-  ); /* Space for sticky action bar */
+  /* Container takes full height, content area will scroll */
 }
 
-/* Progress Stepper */
+/* Progress Stepper - Fixed at top, not scrollable */
 .stepperPaper {
+  flex-shrink: 0;
   padding: var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
-/* Form Content */
+/* Form Content - Scrollable area that takes remaining space */
 .contentPaper {
   flex: 1;
   padding: var(--spacing-lg);
-  min-height: 400px;
   overflow-y: auto;
+  min-height: 0; /* Important for flex scrolling */
 }
 
 .stepContent {
@@ -98,12 +97,9 @@
   width: 100%;
 }
 
-/* Sticky Action Bar */
+/* Fixed Action Bar - Always visible at bottom */
 .actionsBar {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex-shrink: 0;
   padding: var(--spacing-md);
   background: var(--mui-palette-background-paper);
   border-top: 1px solid var(--mui-palette-divider);
@@ -111,11 +107,11 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  z-index: 100;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  /* Negative margins to extend to edges of main content area */
   margin-left: calc(-1 * var(--spacing-md));
   margin-right: calc(-1 * var(--spacing-md));
-  margin-top: auto;
+  margin-bottom: calc(-1 * var(--spacing-md));
 }
 
 .actionsRight {
@@ -125,10 +121,6 @@
 
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
-  .container {
-    padding-bottom: calc(var(--spacing-md) + 100px);
-  }
-
   .contentPaper {
     padding: var(--spacing-md);
   }
@@ -140,6 +132,9 @@
   .actionsBar {
     flex-direction: column;
     padding: var(--spacing-sm);
+    margin-left: calc(-1 * var(--spacing-md));
+    margin-right: calc(-1 * var(--spacing-md));
+    margin-bottom: calc(-1 * var(--spacing-md));
   }
 
   .actionsRight {

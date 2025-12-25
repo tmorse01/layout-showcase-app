@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
+import { defaultNavItems } from "../../config/sidebarData";
 import {
   Button,
   Paper,
@@ -26,6 +27,11 @@ import styles from "./FormWorkflow.module.css";
 
 const steps = ["Basic Information", "Details", "Review", "Confirmation"];
 
+// Helper to generate reference number (outside component to avoid linter warnings)
+const generateReferenceNumber = () => {
+  return `REF-${Date.now().toString().slice(-8)}`;
+};
+
 export function FormWorkflow() {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -33,14 +39,29 @@ export function FormWorkflow() {
     lastName: "",
     email: "",
     phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    website: "",
+    linkedIn: "",
     company: "",
+    companySize: "",
+    industry: "",
     role: "",
     department: "",
     budget: "",
     timeline: "",
     requirements: "",
+    preferredContact: "",
+    timezone: "",
+    language: "",
+    hearAboutUs: "",
+    additionalInfo: "",
     agreeToTerms: false,
     subscribeToNewsletter: false,
+    allowMarketing: false,
   });
 
   // Generate reference number only once when reaching confirmation step
@@ -52,7 +73,7 @@ export function FormWorkflow() {
       setActiveStep(nextStep);
       // Generate reference number when moving to confirmation step
       if (nextStep === 3 && !referenceNumber) {
-        setReferenceNumber(`REF-${Date.now().toString().slice(-8)}`);
+        setReferenceNumber(generateReferenceNumber());
       }
     }
   };
@@ -264,6 +285,41 @@ export function FormWorkflow() {
                     {formData.phone || "Not provided"}
                   </Typography>
                 </div>
+                {formData.address && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Address:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.address}
+                      {formData.city && `, ${formData.city}`}
+                      {formData.state && `, ${formData.state}`}
+                      {formData.zipCode && ` ${formData.zipCode}`}
+                    </Typography>
+                  </div>
+                )}
+                {formData.country && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Country:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.country}
+                    </Typography>
+                  </div>
+                )}
+                {formData.website && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Website:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.website}
+                    </Typography>
+                  </div>
+                )}
+                {formData.preferredContact && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Preferred Contact:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.preferredContact}
+                    </Typography>
+                  </div>
+                )}
               </div>
               <Divider sx={{ my: 2 }} />
               <div className={styles.reviewSection}>
@@ -292,6 +348,22 @@ export function FormWorkflow() {
                     {formData.department || "Not specified"}
                   </Typography>
                 </div>
+                {formData.companySize && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Company Size:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.companySize}
+                    </Typography>
+                  </div>
+                )}
+                {formData.industry && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Industry:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.industry}
+                    </Typography>
+                  </div>
+                )}
                 <div className={styles.reviewRow}>
                   <Typography variant="body2">Budget:</Typography>
                   <Chip
@@ -311,6 +383,24 @@ export function FormWorkflow() {
                     <Typography variant="body2">Requirements:</Typography>
                     <Typography variant="body2" fontWeight={500}>
                       {formData.requirements}
+                    </Typography>
+                  </div>
+                )}
+                {formData.hearAboutUs && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">
+                      How you heard about us:
+                    </Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.hearAboutUs}
+                    </Typography>
+                  </div>
+                )}
+                {formData.additionalInfo && (
+                  <div className={styles.reviewRow}>
+                    <Typography variant="body2">Additional Info:</Typography>
+                    <Typography variant="body2" fontWeight={500}>
+                      {formData.additionalInfo}
                     </Typography>
                   </div>
                 )}
@@ -385,22 +475,18 @@ export function FormWorkflow() {
     return false;
   };
 
+  // Validation disabled for demonstration purposes - always allow navigation
   const canProceed = () => {
-    if (activeStep === 0) {
-      return formData.firstName && formData.lastName && formData.email;
-    }
-    if (activeStep === 1) {
-      return (
-        formData.company &&
-        formData.role &&
-        formData.budget &&
-        formData.timeline
-      );
-    }
-    if (activeStep === 2) {
-      return formData.agreeToTerms;
-    }
     return true;
+  };
+
+  // Allow clicking on stepper steps to jump to any step
+  const handleStepClick = (step: number) => {
+    setActiveStep(step);
+    // Generate reference number if jumping to confirmation step
+    if (step === 3 && !referenceNumber) {
+      setReferenceNumber(generateReferenceNumber());
+    }
   };
 
   return (
@@ -408,6 +494,7 @@ export function FormWorkflow() {
       showAppHeader
       showPageHeader
       showNav
+      navItems={defaultNavItems}
       pageHeaderContent={
         <PageHeader
           title={steps[activeStep]}
@@ -435,15 +522,30 @@ export function FormWorkflow() {
                 completed?: boolean;
                 optional?: React.ReactNode;
               } = {};
-              const labelProps: { optional?: React.ReactNode } = {};
+              const labelProps: {
+                optional?: React.ReactNode;
+                onClick?: () => void;
+              } = {};
               if (isStepOptional(index)) {
                 labelProps.optional = (
                   <Typography variant="caption">Optional</Typography>
                 );
               }
+              // Make steps clickable for demonstration
+              labelProps.onClick = () => handleStepClick(index);
               return (
                 <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
+                  <StepLabel
+                    {...labelProps}
+                    sx={{
+                      cursor: "pointer",
+                      "& .MuiStepLabel-label": {
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    {label}
+                  </StepLabel>
                 </Step>
               );
             })}

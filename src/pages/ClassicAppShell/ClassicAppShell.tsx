@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Paper,
   Typography,
@@ -14,7 +14,7 @@ import {
   FormControl,
   InputLabel,
   Box,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Dashboard as DashboardIcon,
   Settings as SettingsIcon,
@@ -27,14 +27,22 @@ import {
   Delete as DeleteIcon,
   CheckCircle as CheckCircleIcon,
   Schedule as ScheduleIcon,
-} from '@mui/icons-material';
-import { AppFrame } from '../../components/AppFrame/AppFrame';
-import styles from './ClassicAppShell.module.css';
+} from "@mui/icons-material";
+import { AppFrame } from "../../components/AppFrame/AppFrame";
+import styles from "./ClassicAppShell.module.css";
 
 const navItems = [
-  { label: 'Dashboard', path: '/layouts/dashboard-grid', icon: <DashboardIcon /> },
-  { label: 'Settings', path: '/layouts/classic-app-shell', icon: <SettingsIcon /> },
-  { label: 'Profile', path: '/layouts/entity-detail', icon: <PersonIcon /> },
+  {
+    label: "Dashboard",
+    path: "/layouts/dashboard-grid",
+    icon: <DashboardIcon />,
+  },
+  {
+    label: "Settings",
+    path: "/layouts/classic-app-shell",
+    icon: <SettingsIcon />,
+  },
+  { label: "Profile", path: "/layouts/entity-detail", icon: <PersonIcon /> },
 ];
 
 export function ClassicAppShell() {
@@ -42,24 +50,79 @@ export function ClassicAppShell() {
   const [pushNotifications, setPushNotifications] = useState(false);
   const [marketingEmails, setMarketingEmails] = useState(false);
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
-  const [sessionTimeout, setSessionTimeout] = useState('30');
+  const [sessionTimeout, setSessionTimeout] = useState("30");
 
   // Sample team members data
   const teamMembers = [
-    { id: 1, name: 'Sarah Johnson', email: 'sarah@example.com', role: 'Admin', status: 'active' },
-    { id: 2, name: 'Michael Chen', email: 'michael@example.com', role: 'Editor', status: 'active' },
-    { id: 3, name: 'Emily Rodriguez', email: 'emily@example.com', role: 'Viewer', status: 'pending' },
-    { id: 4, name: 'David Kim', email: 'david@example.com', role: 'Editor', status: 'active' },
-    { id: 5, name: 'Lisa Anderson', email: 'lisa@example.com', role: 'Viewer', status: 'inactive' },
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      email: "sarah@example.com",
+      role: "Admin",
+      status: "active",
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      email: "michael@example.com",
+      role: "Editor",
+      status: "active",
+    },
+    {
+      id: 3,
+      name: "Emily Rodriguez",
+      email: "emily@example.com",
+      role: "Viewer",
+      status: "pending",
+    },
+    {
+      id: 4,
+      name: "David Kim",
+      email: "david@example.com",
+      role: "Editor",
+      status: "active",
+    },
+    {
+      id: 5,
+      name: "Lisa Anderson",
+      email: "lisa@example.com",
+      role: "Viewer",
+      status: "inactive",
+    },
   ];
 
   // Sample recent activity
   const recentActivity = [
-    { action: 'User login', user: 'Sarah Johnson', time: '2 minutes ago', type: 'security' },
-    { action: 'Settings updated', user: 'Michael Chen', time: '1 hour ago', type: 'settings' },
-    { action: 'Team member added', user: 'Emily Rodriguez', time: '3 hours ago', type: 'team' },
-    { action: 'Billing updated', user: 'System', time: '1 day ago', type: 'billing' },
-    { action: 'Password changed', user: 'David Kim', time: '2 days ago', type: 'security' },
+    {
+      action: "User login",
+      user: "Sarah Johnson",
+      time: "2 minutes ago",
+      type: "security",
+    },
+    {
+      action: "Settings updated",
+      user: "Michael Chen",
+      time: "1 hour ago",
+      type: "settings",
+    },
+    {
+      action: "Team member added",
+      user: "Emily Rodriguez",
+      time: "3 hours ago",
+      type: "team",
+    },
+    {
+      action: "Billing updated",
+      user: "System",
+      time: "1 day ago",
+      type: "billing",
+    },
+    {
+      action: "Password changed",
+      user: "David Kim",
+      time: "2 days ago",
+      type: "security",
+    },
   ];
 
   const getStatusBadge = (status: string) => {
@@ -69,9 +132,13 @@ export function ClassicAppShell() {
       pending: styles.statusPending,
     };
     return (
-      <span className={`${styles.statusBadge} ${statusClasses[status as keyof typeof statusClasses]}`}>
-        {status === 'active' && <CheckCircleIcon sx={{ fontSize: 14 }} />}
-        {status === 'pending' && <ScheduleIcon sx={{ fontSize: 14 }} />}
+      <span
+        className={`${styles.statusBadge} ${
+          statusClasses[status as keyof typeof statusClasses]
+        }`}
+      >
+        {status === "active" && <CheckCircleIcon sx={{ fontSize: 14 }} />}
+        {status === "pending" && <ScheduleIcon sx={{ fontSize: 14 }} />}
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </span>
     );
@@ -96,7 +163,10 @@ export function ClassicAppShell() {
         </div>
 
         {/* Account Settings Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <Typography variant="h6" className={styles.sectionTitle}>
               Account Settings
@@ -157,14 +227,19 @@ export function ClassicAppShell() {
                 <div className={styles.formGroup}>
                   <FormControl fullWidth>
                     <InputLabel>Timezone</InputLabel>
-                    <Select
-                      label="Timezone"
-                      defaultValue="America/New_York"
-                    >
-                      <MenuItem value="America/New_York">Eastern Time (ET)</MenuItem>
-                      <MenuItem value="America/Chicago">Central Time (CT)</MenuItem>
-                      <MenuItem value="America/Denver">Mountain Time (MT)</MenuItem>
-                      <MenuItem value="America/Los_Angeles">Pacific Time (PT)</MenuItem>
+                    <Select label="Timezone" defaultValue="America/New_York">
+                      <MenuItem value="America/New_York">
+                        Eastern Time (ET)
+                      </MenuItem>
+                      <MenuItem value="America/Chicago">
+                        Central Time (CT)
+                      </MenuItem>
+                      <MenuItem value="America/Denver">
+                        Mountain Time (MT)
+                      </MenuItem>
+                      <MenuItem value="America/Los_Angeles">
+                        Pacific Time (PT)
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -174,10 +249,15 @@ export function ClassicAppShell() {
         </Paper>
 
         {/* Security Settings Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <Typography variant="h6" className={styles.sectionTitle}>
-              <SecurityIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 20 }} />
+              <SecurityIcon
+                sx={{ mr: 1, verticalAlign: "middle", fontSize: 20 }}
+              />
               Security
             </Typography>
             <Typography variant="body2" className={styles.sectionDescription}>
@@ -194,7 +274,9 @@ export function ClassicAppShell() {
                 }
                 label={
                   <Box>
-                    <Typography variant="body1">Two-Factor Authentication</Typography>
+                    <Typography variant="body1">
+                      Two-Factor Authentication
+                    </Typography>
                     <Typography variant="caption" color="text.secondary">
                       Add an extra layer of security to your account
                     </Typography>
@@ -251,15 +333,23 @@ export function ClassicAppShell() {
         </Paper>
 
         {/* Team Management Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <div className={styles.header}>
               <div>
                 <Typography variant="h6" className={styles.sectionTitle}>
-                  <PeopleIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 20 }} />
+                  <PeopleIcon
+                    sx={{ mr: 1, verticalAlign: "middle", fontSize: 20 }}
+                  />
                   Team Management
                 </Typography>
-                <Typography variant="body2" className={styles.sectionDescription}>
+                <Typography
+                  variant="body2"
+                  className={styles.sectionDescription}
+                >
                   Manage team members and their access levels
                 </Typography>
               </div>
@@ -272,14 +362,20 @@ export function ClassicAppShell() {
               {teamMembers.map((member) => (
                 <div key={member.id} className={styles.listItem}>
                   <div className={styles.listItemContent}>
-                    <Typography variant="body1" className={styles.listItemTitle}>
+                    <Typography
+                      variant="body1"
+                      className={styles.listItemTitle}
+                    >
                       {member.name}
                     </Typography>
-                    <Typography variant="body2" className={styles.listItemDescription}>
+                    <Typography
+                      variant="body2"
+                      className={styles.listItemDescription}
+                    >
                       {member.email} • {member.role}
                     </Typography>
                   </div>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                     {getStatusBadge(member.status)}
                     <IconButton size="small" aria-label="edit">
                       <EditIcon fontSize="small" />
@@ -295,10 +391,15 @@ export function ClassicAppShell() {
         </Paper>
 
         {/* Notifications Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <Typography variant="h6" className={styles.sectionTitle}>
-              <NotificationsIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 20 }} />
+              <NotificationsIcon
+                sx={{ mr: 1, verticalAlign: "middle", fontSize: 20 }}
+              />
               Notifications
             </Typography>
             <Typography variant="body2" className={styles.sectionDescription}>
@@ -361,10 +462,15 @@ export function ClassicAppShell() {
         </Paper>
 
         {/* Billing Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <Typography variant="h6" className={styles.sectionTitle}>
-              <CreditCardIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 20 }} />
+              <CreditCardIcon
+                sx={{ mr: 1, verticalAlign: "middle", fontSize: 20 }}
+              />
               Billing & Subscription
             </Typography>
             <Typography variant="body2" className={styles.sectionDescription}>
@@ -391,7 +497,11 @@ export function ClassicAppShell() {
                 <Typography variant="body1" className={styles.cardTitle}>
                   Payment Method
                 </Typography>
-                <Typography variant="body2" className={styles.cardContent} sx={{ my: 1 }}>
+                <Typography
+                  variant="body2"
+                  className={styles.cardContent}
+                  sx={{ my: 1 }}
+                >
                   •••• •••• •••• 4242
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
@@ -421,7 +531,10 @@ export function ClassicAppShell() {
         </Paper>
 
         {/* Recent Activity Section */}
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: 3, border: "1px solid", borderColor: "divider" }}
+        >
           <div className={styles.section}>
             <Typography variant="h6" className={styles.sectionTitle}>
               Recent Activity
@@ -434,17 +547,23 @@ export function ClassicAppShell() {
               {recentActivity.map((activity, index) => (
                 <div key={index} className={styles.listItem}>
                   <div className={styles.listItemContent}>
-                    <Typography variant="body1" className={styles.listItemTitle}>
+                    <Typography
+                      variant="body1"
+                      className={styles.listItemTitle}
+                    >
                       {activity.action}
                     </Typography>
-                    <Typography variant="body2" className={styles.listItemDescription}>
+                    <Typography
+                      variant="body2"
+                      className={styles.listItemDescription}
+                    >
                       {activity.user} • {activity.time}
                     </Typography>
                   </div>
                   <Chip
                     label={activity.type}
                     size="small"
-                    color={activity.type === 'security' ? 'error' : 'default'}
+                    color={activity.type === "security" ? "error" : "default"}
                   />
                 </div>
               ))}
@@ -465,4 +584,3 @@ export function ClassicAppShell() {
     </AppFrame>
   );
 }
-

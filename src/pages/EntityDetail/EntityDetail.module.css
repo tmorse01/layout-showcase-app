@@ -18,10 +18,12 @@
   border-bottom: 1px solid var(--mui-palette-divider);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md))
     var(--spacing-md);
   padding: 0 var(--spacing-md);
+  /* Ensure tabs are clickable */
+  pointer-events: auto;
 }
 
 /* Tab Content Area */

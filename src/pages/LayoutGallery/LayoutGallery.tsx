@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Paper, Typography, Chip, Box } from '@mui/material';
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { Paper, Typography, Chip, Box } from "@mui/material";
 import {
   Dashboard,
   ViewSidebar,
@@ -18,51 +18,53 @@ import {
   Timeline,
   ViewKanban,
   ArrowForward,
-} from '@mui/icons-material';
-import { AppFrame } from '../../components/AppFrame/AppFrame';
-import { FilterSidebar } from '../../components/FilterSidebar/FilterSidebar';
-import { layoutMetadata, type LayoutMetadata } from '../../config/layoutVariants';
-import styles from './LayoutGallery.module.css';
+} from "@mui/icons-material";
+import { AppFrame } from "../../components/AppFrame/AppFrame";
+import { FilterSidebar } from "../../components/FilterSidebar/FilterSidebar";
+import { layoutMetadata } from "../../config/layoutVariants";
+import type { LayoutMetadata } from "../../types/layout";
+import styles from "./LayoutGallery.module.css";
 
 const layoutIcons: Record<string, React.ReactNode> = {
-  'classic-app-shell': <ViewSidebar />,
-  'dashboard-grid': <Dashboard />,
-  'entity-detail': <Article />,
-  'master-detail': <ViewColumn />,
-  'form-workflow': <Assignment />,
-  'collapsible-sidebar': <Menu />,
-  'tabbed-content': <Tab />,
-  'split-view': <Splitscreen />,
-  'table-first': <TableChart />,
-  'search-driven': <Search />,
-  'right-inspector': <Info />,
-  'command-centered': <Keyboard />,
-  'focus-mode': <Fullscreen />,
-  'timeline': <Timeline />,
-  'kanban': <ViewKanban />,
+  "classic-app-shell": <ViewSidebar />,
+  "dashboard-grid": <Dashboard />,
+  "entity-detail": <Article />,
+  "master-detail": <ViewColumn />,
+  "form-workflow": <Assignment />,
+  "collapsible-sidebar": <Menu />,
+  "tabbed-content": <Tab />,
+  "split-view": <Splitscreen />,
+  "table-first": <TableChart />,
+  "search-driven": <Search />,
+  "right-inspector": <Info />,
+  "command-centered": <Keyboard />,
+  "focus-mode": <Fullscreen />,
+  timeline: <Timeline />,
+  kanban: <ViewKanban />,
 };
 
 const tierColors: Record<string, { bg: string; text: string }> = {
-  essential: { bg: '#e3f2fd', text: '#1976d2' },
-  modern: { bg: '#f3e5f5', text: '#7b1fa2' },
-  advanced: { bg: '#fff3e0', text: '#e65100' },
+  essential: { bg: "#e3f2fd", text: "#1976d2" },
+  modern: { bg: "#f3e5f5", text: "#7b1fa2" },
+  advanced: { bg: "#fff3e0", text: "#e65100" },
 };
 
 const headerPatternLabels: Record<string, string> = {
-  'app-only': 'App Header',
-  'app-page': 'App + Page Header',
-  'page-only': 'Page Header',
-  'none': 'No Header',
+  "app-only": "App Header",
+  "app-page": "App + Page Header",
+  "page-only": "Page Header",
+  none: "No Header",
 };
 
 export function LayoutGallery() {
-  const [filteredLayouts, setFilteredLayouts] = useState<LayoutMetadata[]>(layoutMetadata);
+  const [filteredLayouts, setFilteredLayouts] =
+    useState<LayoutMetadata[]>(layoutMetadata);
 
   // Group filtered layouts by tier
   const layoutsByTier = useMemo(() => {
-    const essential = filteredLayouts.filter((l) => l.tier === 'essential');
-    const modern = filteredLayouts.filter((l) => l.tier === 'modern');
-    const advanced = filteredLayouts.filter((l) => l.tier === 'advanced');
+    const essential = filteredLayouts.filter((l) => l.tier === "essential");
+    const modern = filteredLayouts.filter((l) => l.tier === "modern");
+    const advanced = filteredLayouts.filter((l) => l.tier === "advanced");
     return { essential, modern, advanced };
   }, [filteredLayouts]);
 
@@ -80,8 +82,13 @@ export function LayoutGallery() {
             <Typography variant="h4" component="h1" className={styles.title}>
               Layout Showcase
             </Typography>
-            <Typography variant="body2" color="text.secondary" className={styles.subtitle}>
-              Explore {filteredLayouts.length} canonical app shell layouts and page archetypes
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              className={styles.subtitle}
+            >
+              Explore {filteredLayouts.length} canonical app shell layouts and
+              page archetypes
             </Typography>
           </div>
           <Box className={styles.stats}>
@@ -108,7 +115,11 @@ export function LayoutGallery() {
             {layoutsByTier.essential.length > 0 && (
               <section className={styles.section}>
                 <Box className={styles.sectionHeader}>
-                  <Typography variant="h5" component="h2" className={styles.sectionTitle}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    className={styles.sectionTitle}
+                  >
                     Essential Layouts
                   </Typography>
                   <Chip
@@ -132,7 +143,11 @@ export function LayoutGallery() {
             {layoutsByTier.modern.length > 0 && (
               <section className={styles.section}>
                 <Box className={styles.sectionHeader}>
-                  <Typography variant="h5" component="h2" className={styles.sectionTitle}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    className={styles.sectionTitle}
+                  >
                     Modern Set
                   </Typography>
                   <Chip
@@ -156,7 +171,11 @@ export function LayoutGallery() {
             {layoutsByTier.advanced.length > 0 && (
               <section className={styles.section}>
                 <Box className={styles.sectionHeader}>
-                  <Typography variant="h5" component="h2" className={styles.sectionTitle}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    className={styles.sectionTitle}
+                  >
                     Advanced & Specialized
                   </Typography>
                   <Chip
@@ -183,7 +202,7 @@ export function LayoutGallery() {
   );
 }
 
-function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
+function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
   const icon = layoutIcons[layout.id];
   const tierColor = tierColors[layout.tier];
 
@@ -193,20 +212,23 @@ function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
       component={Link}
       to={layout.route}
       sx={{
-        '&:hover': {
-          '& .cardIcon': {
-            transform: 'scale(1.08) rotate(3deg)',
-            background: 'var(--mui-palette-action-selected)',
+        "&:hover": {
+          "& .cardIcon": {
+            transform: "scale(1.08) rotate(3deg)",
+            background: "var(--mui-palette-action-selected)",
           },
-          '& .cardArrow': {
-            transform: 'translateX(6px)',
+          "& .cardArrow": {
+            transform: "translateX(6px)",
             opacity: 1,
           },
         },
       }}
     >
       <Box className={styles.cardIconContainer}>
-        <Box className={`${styles.cardIcon} cardIcon`} sx={{ color: tierColor.text }}>
+        <Box
+          className={`${styles.cardIcon} cardIcon`}
+          sx={{ color: tierColor.text }}
+        >
           {icon}
         </Box>
         <Chip
@@ -216,8 +238,8 @@ function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
             bgcolor: tierColor.bg,
             color: tierColor.text,
             fontWeight: 600,
-            fontSize: '0.7rem',
-            height: '24px',
+            fontSize: "0.7rem",
+            height: "24px",
           }}
         />
       </Box>
@@ -226,7 +248,11 @@ function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
         <Typography variant="h6" component="h3" className={styles.cardTitle}>
           {layout.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary" className={styles.description}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          className={styles.description}
+        >
           {layout.description}
         </Typography>
       </Box>
@@ -237,9 +263,13 @@ function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
             label={headerPatternLabels[layout.headerPattern]}
             size="small"
             variant="outlined"
-            sx={{ fontSize: '0.7rem', height: '22px' }}
+            sx={{ fontSize: "0.7rem", height: "22px" }}
           />
-          <Typography variant="caption" color="text.secondary" className={styles.featureCount}>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            className={styles.featureCount}
+          >
             {layout.features.length} features
           </Typography>
         </Box>
@@ -250,4 +280,3 @@ function LayoutCard({ layout }: { layout: typeof layoutMetadata[0] }) {
     </Paper>
   );
 }
-

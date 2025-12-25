@@ -12,6 +12,7 @@ import {
   Divider,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
+import { defaultNavItems } from "../../config/sidebarData";
 import styles from "./EntityDetail.module.css";
 
 /**
@@ -38,6 +39,7 @@ export function EntityDetail() {
       showAppHeader
       showPageHeader
       showNav
+      navItems={defaultNavItems}
       pageHeaderContent={
         <PageHeader
           title="Product #PRD-2024-001"
@@ -77,7 +79,13 @@ export function EntityDetail() {
             value={activeTab}
             onChange={handleTabChange}
             aria-label="entity detail tabs"
-            sx={{ borderBottom: 1, borderColor: "divider" }}
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              "& .MuiTab-root": {
+                pointerEvents: "auto",
+              },
+            }}
           >
             <Tab label="Overview" />
             <Tab label="Details" />
