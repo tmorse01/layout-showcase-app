@@ -1,0 +1,232 @@
+/**
+ * AppFrame - Main application shell using CSS Grid
+ * 
+ * Header Usage Guidelines:
+ * - App Header: Fixed at top, 48-64px (max 80px) - for global navigation
+ * - Page Header: Sticky below app header, 56-72px (max 96px) - for contextual actions
+ * - Max Combined Height: 144px total for all fixed headers
+ * 
+ * When to use:
+ * - App header only: Dashboard, list views, search results
+ * - App + Page header: Entity detail pages, form pages, settings
+ * - No fixed headers: Full-screen focus mode, command-centered layouts
+ */
+
+.frame {
+  display: grid;
+  grid-template-areas:
+    "appHeader appHeader appHeader"
+    "nav pageHeader rightRail"
+    "nav main rightRail";
+  grid-template-rows:
+    var(--app-header-height, 0)
+    var(--page-header-height, 0)
+    1fr;
+  grid-template-columns:
+    var(--nav-width, 0)
+    1fr
+    var(--right-rail-width, 0);
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* CSS Variables - Header Heights */
+:root {
+  --app-header-height: 64px;
+  --app-header-height-max: 80px;
+  --page-header-height: 72px;
+  --page-header-height-max: 96px;
+  --max-total-header-height: 144px;
+  
+  /* Navigation */
+  --nav-width: 240px;
+  --nav-width-collapsed: 64px;
+  
+  /* Right Rail */
+  --right-rail-width: 320px;
+  
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-xs: calc(var(--spacing-unit) * 1);
+  --spacing-sm: calc(var(--spacing-unit) * 2);
+  --spacing-md: calc(var(--spacing-unit) * 3);
+  --spacing-lg: calc(var(--spacing-unit) * 4);
+  --spacing-xl: calc(var(--spacing-unit) * 6);
+}
+
+/* App Header Area */
+.appHeader {
+  grid-area: appHeader;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--app-header-height);
+  max-height: var(--app-header-height-max);
+  background-color: var(--header-bg, #fff);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+/* Navigation Area */
+.nav {
+  grid-area: nav;
+  position: fixed;
+  top: var(--app-header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--nav-width);
+  z-index: 999;
+  background-color: var(--nav-bg, #f5f5f5);
+  border-right: 1px solid var(--border-color, #e0e0e0);
+  overflow-y: auto;
+  transition: width 0.2s ease;
+}
+
+.navCollapsed {
+  width: var(--nav-width-collapsed);
+}
+
+/* Page Header Area */
+.pageHeader {
+  grid-area: pageHeader;
+  position: sticky;
+  top: var(--app-header-height);
+  z-index: 998;
+  height: var(--page-header-height);
+  max-height: var(--page-header-height-max);
+  background-color: var(--page-header-bg, #fff);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+/* Main Content Area */
+.main {
+  grid-area: main;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100dvh - var(--app-header-height) - var(--page-header-height, 0));
+  background-color: var(--main-bg, #fff);
+  padding: var(--spacing-md);
+}
+
+/* Right Rail Area */
+.rightRail {
+  grid-area: rightRail;
+  position: fixed;
+  top: var(--app-header-height);
+  right: 0;
+  bottom: 0;
+  width: var(--right-rail-width);
+  z-index: 997;
+  background-color: var(--right-rail-bg, #f9f9f9);
+  border-left: 1px solid var(--border-color, #e0e0e0);
+  overflow-y: auto;
+}
+
+/* Variants */
+.noAppHeader .frame {
+  grid-template-areas:
+    "nav pageHeader rightRail"
+    "nav main rightRail";
+  grid-template-rows:
+    var(--page-header-height, 0)
+    1fr;
+}
+
+.noAppHeader .nav {
+  top: 0;
+}
+
+.noAppHeader .pageHeader {
+  top: 0;
+}
+
+.noAppHeader .main {
+  height: calc(100dvh - var(--page-header-height, 0));
+}
+
+.noPageHeader .frame {
+  grid-template-areas:
+    "appHeader appHeader appHeader"
+    "nav main rightRail";
+  grid-template-rows:
+    var(--app-header-height)
+    1fr;
+}
+
+.noPageHeader .main {
+  height: calc(100dvh - var(--app-header-height));
+}
+
+.noNav .frame {
+  grid-template-areas:
+    "appHeader appHeader appHeader"
+    "pageHeader pageHeader rightRail"
+    "main main rightRail";
+  grid-template-columns:
+    1fr
+    var(--right-rail-width, 0);
+}
+
+.noNav .main {
+  margin-left: 0;
+}
+
+.noRightRail .frame {
+  grid-template-areas:
+    "appHeader appHeader appHeader"
+    "nav pageHeader ."
+    "nav main .";
+  grid-template-columns:
+    var(--nav-width, 0)
+    1fr
+    0;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .frame {
+    grid-template-areas:
+      "appHeader"
+      "pageHeader"
+      "main";
+    grid-template-columns: 1fr;
+    grid-template-rows:
+      var(--app-header-height, 0)
+      var(--page-header-height, 0)
+      1fr;
+  }
+  
+  .nav {
+    position: fixed;
+    top: var(--app-header-height);
+    left: -100%;
+    width: 280px;
+    transition: left 0.3s ease;
+    z-index: 1001;
+  }
+  
+  .navOpen {
+    left: 0;
+  }
+  
+  .rightRail {
+    position: fixed;
+    top: var(--app-header-height);
+    right: -100%;
+    width: 280px;
+    transition: right 0.3s ease;
+    z-index: 1001;
+  }
+  
+  .rightRailOpen {
+    right: 0;
+  }
+  
+  .main {
+    margin-left: 0;
+    height: calc(100dvh - var(--app-header-height) - var(--page-header-height, 0));
+  }
+}
+
