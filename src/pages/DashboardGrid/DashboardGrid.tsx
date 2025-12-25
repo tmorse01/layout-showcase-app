@@ -19,9 +19,11 @@ import {
   MoreVert,
 } from "@mui/icons-material";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./DashboardGrid.module.css";
 
 export function DashboardGrid() {
+  useDocumentTitle("Dashboard Grid - Layout Showcase");
   // Sample KPI data
   const kpis = [
     {

@@ -1,0 +1,157 @@
+/**
+ * Focus Mode Layout Styles
+ * 
+ * Distraction-free, full-screen layout for focused writing, editing, or reviewing.
+ * No headers, no navigation - just content and minimal floating controls.
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  width: 100%;
+  position: relative;
+  background-color: var(--mui-palette-background-default);
+  overflow: hidden;
+}
+
+/* Floating toggle button - top right */
+.toggleButton {
+  position: fixed;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+}
+
+.toggleButton:hover {
+  opacity: 0.8;
+}
+
+.toggleIcon {
+  background-color: var(--mui-palette-background-paper);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toggleIcon:hover {
+  background-color: var(--mui-palette-action-hover);
+}
+
+/* Floating controls panel - top center */
+.controlsPanel {
+  position: fixed;
+  top: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.controlsPaper {
+  min-width: 600px;
+  max-width: 90vw;
+  backdrop-filter: blur(10px);
+}
+
+/* Main content area - full screen editor */
+.contentArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0; /* Allow flex item to shrink */
+  overflow: hidden;
+  padding: var(--spacing-xl) var(--spacing-xl);
+  padding-top: calc(var(--spacing-xl) + 60px); /* Space for controls */
+  padding-bottom: calc(var(--spacing-xl) + 40px); /* Space for footer */
+  box-sizing: border-box;
+}
+
+.editor {
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--mui-palette-text-primary);
+  resize: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 0; /* Allow flex item to shrink */
+}
+
+.editor::placeholder {
+  color: var(--mui-palette-text-secondary);
+  opacity: 0.5;
+}
+
+.editor:focus {
+  outline: none;
+}
+
+/* Footer - minimal stats/info */
+.footer {
+  position: fixed;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 998;
+  padding: var(--spacing-xs) var(--spacing-sm) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contentArea {
+    padding: var(--spacing-md);
+    padding-top: calc(var(--spacing-md) + 80px);
+  }
+
+  .controlsPaper {
+    min-width: auto;
+    width: calc(100vw - var(--spacing-md) * 2);
+  }
+
+  .toggleButton {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+
+  .controlsPanel {
+    top: var(--spacing-sm);
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    transform: none;
+  }
+
+  .controlsPaper {
+    width: 100%;
+  }
+
+  .footer {
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    transform: none;
+    text-align: center;
+  }
+}
+
+/* Note: Background colors are handled by MUI Paper component */
+
+/* Smooth transitions for controls visibility */
+.controlsPanel {
+  pointer-events: auto;
+}
+
+.controlsPanel[style*="opacity: 0"] {
+  pointer-events: none;
+}
+

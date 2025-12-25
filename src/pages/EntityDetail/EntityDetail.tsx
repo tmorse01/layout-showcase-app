@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./EntityDetail.module.css";
 
 /**
@@ -28,6 +29,7 @@ import styles from "./EntityDetail.module.css";
  * - Total: 136px (within 144px max constraint)
  */
 export function EntityDetail() {
+  useDocumentTitle("Entity Detail (Sticky Sub-Header) - Layout Showcase");
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {

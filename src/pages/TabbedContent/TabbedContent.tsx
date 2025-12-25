@@ -28,6 +28,7 @@ import {
   Palette,
 } from "@mui/icons-material";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./TabbedContent.module.css";
 
 /**
@@ -49,6 +50,7 @@ import styles from "./TabbedContent.module.css";
  * - Responsive tab behavior
  */
 export function TabbedContent() {
+  useDocumentTitle("Tabbed Content Layout - Layout Showcase");
   const [activeTab, setActiveTab] = useState(0);
   const [settings, setSettings] = useState({
     emailNotifications: true,

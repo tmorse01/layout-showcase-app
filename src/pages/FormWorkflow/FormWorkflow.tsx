@@ -23,6 +23,7 @@ import {
   Chip,
 } from "@mui/material";
 import { CheckCircle, ArrowBack, ArrowForward } from "@mui/icons-material";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./FormWorkflow.module.css";
 
 const steps = ["Basic Information", "Details", "Review", "Confirmation"];
@@ -33,6 +34,7 @@ const generateReferenceNumber = () => {
 };
 
 export function FormWorkflow() {
+  useDocumentTitle("Form-Centric Workflow - Layout Showcase");
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",

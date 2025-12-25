@@ -23,6 +23,7 @@ import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { FilterSidebar } from "../../components/FilterSidebar/FilterSidebar";
 import { layoutMetadata } from "../../config/layoutVariants";
 import type { LayoutMetadata } from "../../types/layout";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./LayoutGallery.module.css";
 
 const layoutIcons: Record<string, React.ReactNode> = {
@@ -57,6 +58,7 @@ const headerPatternLabels: Record<string, string> = {
 };
 
 export function LayoutGallery() {
+  useDocumentTitle("Layout Showcase");
   const [filteredLayouts, setFilteredLayouts] =
     useState<LayoutMetadata[]>(layoutMetadata);
 

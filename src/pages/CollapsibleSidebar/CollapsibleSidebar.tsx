@@ -21,9 +21,11 @@ import {
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./CollapsibleSidebar.module.css";
 
 export function CollapsibleSidebar() {
+  useDocumentTitle("Collapsible Sidebar App Shell - Layout Showcase");
   const [collapsed, setCollapsed] = useState(false);
 
   // Sample project data

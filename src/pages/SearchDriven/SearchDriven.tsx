@@ -21,6 +21,7 @@ import {
   Folder,
 } from "@mui/icons-material";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./SearchDriven.module.css";
 
 // Sample content items
@@ -160,6 +161,7 @@ const typeIcons = {
 };
 
 export function SearchDriven() {
+  useDocumentTitle("Search-Driven Layout - Layout Showcase");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

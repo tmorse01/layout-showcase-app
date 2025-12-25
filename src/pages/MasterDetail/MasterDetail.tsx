@@ -26,6 +26,7 @@ import {
   MoreVert,
 } from "@mui/icons-material";
 import { defaultNavItems } from "../../config/sidebarData";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./MasterDetail.module.css";
 
 // Sample data for master list
@@ -120,6 +121,7 @@ const getStatusColor = (
 };
 
 export function MasterDetail() {
+  useDocumentTitle("Master–Detail - Layout Showcase");
   const [selectedId, setSelectedId] = useState<string | null>(
     contacts[0]?.id || null
   );

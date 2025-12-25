@@ -1,0 +1,665 @@
+/**
+ * Kanban Board Layout - FIXED DIMENSIONS APPROACH
+ * 
+ * Demonstrates:
+ * - Column-based board layout
+ * - Horizontal scrolling columns
+ * - Card organization within columns
+ * - Responsive behavior
+ * 
+ * LAYOUT STYLING EMPHASIS - FIXED DIMENSIONS FOR ALWAYS-VISIBLE SCROLLBARS:
+ * This layout uses FIXED DIMENSIONS to guarantee scrollbars are always visible:
+ * 
+ * KEY PRINCIPLE: Fixed Height/Width + Overflow = Always-Visible Scrollbars
+ * - Board container has FIXED HEIGHT (calc-based on viewport)
+ * - Board container has FIXED WIDTH (100% of parent)
+ * - Columns have FIXED WIDTH (300px) - ensures horizontal overflow
+ * - Column content has FIXED HEIGHT (calc-based) - ensures vertical overflow
+ * - Content ALWAYS overflows fixed containers, making scrollbars ALWAYS visible
+ * 
+ * HORIZONTAL SCROLLING (Board Level):
+ * - Fixed height: calc(100vh - header - padding)
+ * - Fixed width: 100% of container
+ * - overflow-x: scroll - ALWAYS shows horizontal scrollbar
+ * - Many columns (300px each) exceed board width → horizontal overflow
+ * - Prominent 12px scrollbar height for easy discovery
+ * 
+ * VERTICAL SCROLLING (Column Level):
+ * - Fixed height: calc(100% - 60px header)
+ * - overflow-y: scroll - ALWAYS shows vertical scrollbar
+ * - Many cards exceed column height → vertical overflow
+ * - Each column independently scrollable
+ * - Prominent 10px scrollbar width for easy discovery
+ * 
+ * WHY FIXED DIMENSIONS APPROACH:
+ * - GUARANTEES scrollbar visibility (content always overflows)
+ * - Predictable layout behavior
+ * - No dependency on content amount
+ * - Clear visual boundaries
+ * - Better for demos and showcases
+ * 
+ * LAYOUT TECHNIQUES:
+ * - Fixed dimensions (height/width) instead of flex-based sizing
+ * - overflow: scroll (not 'auto') for guaranteed scrollbar visibility
+ * - Fixed column widths (300px) prevent layout shifts
+ * - Proper overflow handling for nested scrollable areas
+ * - Responsive adjustments maintain fixed approach
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  height: 100%;
+  box-sizing: border-box;
+  /* Ensure container takes full available height */
+  min-height: 0;
+}
+
+/* Board Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-sm);
+  flex-shrink: 0;
+  gap: var(--spacing-md);
+}
+
+.title {
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.settingsButton {
+  color: var(--mui-palette-text-secondary);
+}
+
+.settingsButton:hover {
+  background-color: var(--mui-palette-action-hover);
+}
+
+/* Kanban Board - Fixed Dimensions with Overflow
+ * 
+ * CRITICAL LAYOUT STYLING - FIXED DIMENSIONS APPROACH:
+ * - Fixed height: Content will overflow vertically, scrollbar always visible
+ * - Fixed width or viewport-based: Content will overflow horizontally, scrollbar always visible
+ * - overflow-x: scroll - ALWAYS shows horizontal scrollbar
+ * - overflow-y: scroll - ALWAYS shows vertical scrollbar (on columns)
+ * - Fixed dimensions ensure content always overflows, making scrollbars always visible
+ * - This approach guarantees scrollbar visibility regardless of content amount
+ */
+.board {
+  display: flex;
+  gap: var(--spacing-md);
+  /* FIXED DIMENSIONS - Key to always-visible scrollbars */
+  width: 100%;
+  height: calc(
+    100vh - var(--app-header-height) - 200px
+  ); /* Fixed height: header + padding */
+  min-height: 600px; /* Minimum height to ensure scrollbars appear */
+  max-height: calc(100vh - var(--app-header-height) - 200px);
+  /* CRITICAL: Use 'scroll' to ALWAYS show scrollbars */
+  overflow-x: scroll; /* Always show horizontal scrollbar */
+  overflow-y: hidden; /* Vertical scrolling handled by columns */
+  /* Smooth scrolling behavior */
+  scroll-behavior: smooth;
+  /* Always show scrollbar - critical for discoverability */
+  scrollbar-width: auto;
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+  /* Visual indicator that content is scrollable */
+  position: relative;
+  /* Force scrollbar to always render */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent flex shrinking */
+  flex-shrink: 0;
+  /* Box sizing */
+  box-sizing: border-box;
+}
+
+/* Webkit scrollbar styling - ALWAYS VISIBLE */
+.board::-webkit-scrollbar {
+  height: 12px; /* Increased height for better visibility */
+  /* Always visible, not just on hover */
+  /* Force scrollbar to always be displayed */
+  display: block !important;
+  -webkit-appearance: none;
+}
+
+.board::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  /* Visible track indicates scrollable area */
+  /* Ensure track is always visible */
+  display: block !important;
+  /* Add border to make track more visible */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.board::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  /* Always visible, prominent thumb */
+  min-width: 40px; /* Minimum thumb width for easy grabbing */
+  /* Ensure thumb is always rendered */
+  display: block !important;
+}
+
+.board::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Darker on hover for better feedback */
+}
+
+.board::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Even darker when actively dragging */
+}
+
+/* Scroll shadow indicators - visual cues for scrollability */
+.board::before,
+.board::after {
+  content: "";
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Left scroll shadow - appears when scrolled right */
+.board::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.1) 0%,
+    transparent 100%
+  );
+  opacity: 0;
+}
+
+/* Right scroll shadow - appears when content extends beyond */
+.board::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.1) 0%, transparent 100%);
+  opacity: 1; /* Always visible on right to indicate more content */
+}
+
+/* Show left shadow when scrolled */
+.board[data-scrolled="true"]::before {
+  opacity: 1;
+}
+
+/* Ensure scrollbar is ALWAYS visible - override browser defaults */
+/* Note: overflow-x: scroll is already set above, this ensures it's enforced */
+.board {
+  /* Force scrollbar to always be visible - even when content doesn't overflow */
+  overflow-x: scroll !important; /* Force override any other styles */
+  /* For Firefox, ensure scrollbar is visible */
+  scrollbar-width: auto;
+  /* Ensure scrollbar track is always rendered */
+  scrollbar-gutter: stable;
+}
+
+/* Additional emphasis: Make scrollbars more prominent on smaller screens */
+@media (max-width: 1024px) {
+  .board::-webkit-scrollbar {
+    height: 14px; /* Even more prominent on tablets */
+  }
+
+  .columnContent::-webkit-scrollbar {
+    width: 12px; /* More prominent vertical scrollbar on tablets */
+  }
+}
+
+/* Ensure scrollbars are always visible even with many columns/cards */
+@media (min-width: 1025px) {
+  /* On larger screens, ensure scrollbars remain visible with many columns */
+  .board {
+    /* Force horizontal scrollbar visibility */
+    overflow-x: scroll;
+  }
+
+  .columnContent {
+    /* Force vertical scrollbar visibility */
+    overflow-y: scroll;
+  }
+}
+
+/* Column
+ * 
+ * LAYOUT STYLING CRITICAL POINTS - FIXED DIMENSIONS:
+ * - Fixed width: 300px prevents layout shifts and ensures horizontal overflow
+ * - Fixed height: 100% of board height ensures vertical overflow in content area
+ * - flex-shrink: 0: Prevents columns from compressing during horizontal scroll
+ * - flex-direction: column: Stacks header and content vertically
+ * - Fixed dimensions ensure content overflows, making scrollbars always visible
+ */
+.column {
+  display: flex;
+  flex-direction: column;
+  /* FIXED WIDTH - Ensures horizontal overflow */
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+  /* FIXED HEIGHT - Matches board height, ensures vertical overflow in content */
+  height: 100%;
+  min-height: 100%;
+  flex-shrink: 0; /* CRITICAL: Prevents column compression during horizontal scroll */
+  flex-grow: 0; /* Prevents columns from growing beyond fixed width */
+  background-color: var(--mui-palette-background-default);
+  border-radius: 8px;
+  box-sizing: border-box;
+  /* Ensure column maintains fixed dimensions */
+  overflow: hidden;
+}
+
+/* Column Header */
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--mui-palette-divider);
+  flex-shrink: 0;
+  /* Fixed height for consistent column content calculation */
+  height: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  box-sizing: border-box;
+}
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.countChip {
+  height: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.columnMenu {
+  min-width: auto;
+  padding: 4px;
+}
+
+/* Column Content - Fixed Height with Overflow
+ * 
+ * CRITICAL LAYOUT STYLING FOR VERTICAL SCROLLING - FIXED DIMENSIONS:
+ * - Fixed height: calc(100% - header height) ensures content overflows
+ * - overflow-y: scroll - ALWAYS shows vertical scrollbar
+ * - overflow-x: hidden prevents horizontal scrolling within columns
+ * - Fixed height approach guarantees scrollbar visibility
+ * - Padding-right reserves space for scrollbar to prevent content overlap
+ */
+.columnContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  padding-right: var(--spacing-sm); /* Reserve space for scrollbar */
+  /* FIXED HEIGHT - Ensures vertical overflow and always-visible scrollbar */
+  height: calc(100% - 60px); /* Subtract column header height */
+  min-height: 0;
+  max-height: calc(100% - 60px);
+  overflow-y: scroll; /* ALWAYS show vertical scrollbar */
+  overflow-x: hidden;
+  /* Always show scrollbar - critical for discoverability with many cards */
+  scrollbar-width: auto;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.08);
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Box sizing */
+  box-sizing: border-box;
+}
+
+/* Webkit scrollbar styling - ALWAYS VISIBLE VERTICAL SCROLLBAR */
+.columnContent::-webkit-scrollbar {
+  width: 10px; /* Increased from 6px for better visibility */
+  /* Always visible, not just on hover */
+}
+
+.columnContent::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  /* Visible track indicates scrollable area */
+  margin: var(--spacing-xs) 0;
+}
+
+.columnContent::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  /* Always visible, prominent thumb */
+  min-height: 30px; /* Minimum thumb height for easy grabbing */
+}
+
+.columnContent::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Darker on hover for better feedback */
+}
+
+.columnContent::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Even darker when actively dragging */
+}
+
+/* Task Card */
+.taskCard {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.taskCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Task Header */
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.taskLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  flex: 1;
+}
+
+.labelChip {
+  height: 20px;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.taskMenu {
+  min-width: auto;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+/* Task Title */
+.taskTitle {
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: var(--spacing-xs);
+}
+
+/* Task Description */
+.taskDescription {
+  line-height: 1.5;
+  margin-top: var(--spacing-xs);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Task Footer */
+.taskFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--mui-palette-divider);
+}
+
+.taskMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  align-items: center;
+  flex: 1;
+}
+
+.priorityChip,
+.dateChip,
+.attachmentChip {
+  height: 20px;
+  font-size: 0.7rem;
+}
+
+.assignees {
+  flex-shrink: 0;
+}
+
+/* Add Task Button */
+.addTaskButton {
+  margin-top: var(--spacing-xs);
+  text-transform: none;
+  color: var(--mui-palette-text-secondary);
+  border: 1px dashed var(--mui-palette-divider);
+  padding: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.addTaskButton:hover {
+  background-color: var(--mui-palette-action-hover);
+  border-color: var(--mui-palette-primary-main);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .board {
+    height: calc(100vh - var(--app-header-height) - 180px);
+    min-height: 500px;
+    max-height: calc(100vh - var(--app-header-height) - 180px);
+  }
+
+  .column {
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+  }
+
+  .board {
+    gap: var(--spacing-sm);
+    height: calc(100vh - var(--app-header-height) - 160px);
+    min-height: 400px;
+    max-height: calc(100vh - var(--app-header-height) - 160px);
+  }
+
+  .column {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+  }
+
+  .columnHeader {
+    padding: var(--spacing-sm);
+  }
+
+  .columnContent {
+    padding: var(--spacing-sm);
+  }
+
+  .taskCard {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .board {
+    height: calc(100vh - var(--app-header-height) - 140px);
+    min-height: 350px;
+    max-height: calc(100vh - var(--app-header-height) - 140px);
+  }
+
+  .column {
+    width: 240px;
+    min-width: 240px;
+    max-width: 240px;
+  }
+
+  .taskFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .assignees {
+    align-self: flex-end;
+  }
+}
+
+/* Settings Menu */
+.settingsMenu {
+  max-width: 320px;
+  max-height: 500px;
+}
+
+.settingsMenuHeader {
+  padding: var(--spacing-md);
+}
+
+.settingsMenuContent {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: var(--spacing-xs) 0;
+}
+
+.settingsMenuItem {
+  padding: 0;
+  min-height: auto;
+}
+
+.settingsMenuItem:hover {
+  background-color: var(--mui-palette-action-hover);
+}
+
+.columnMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: var(--spacing-sm);
+}
+
+.columnMenuCount {
+  height: 20px;
+  font-size: 0.7rem;
+  margin-left: var(--spacing-sm);
+}
+
+.settingsMenuActions {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  min-height: 400px;
+  text-align: center;
+}
+
+.emptyStateIcon {
+  font-size: 64px;
+  color: var(--mui-palette-text-disabled);
+  opacity: 0.5;
+}
+
+.showAllButton {
+  margin-top: var(--spacing-sm);
+}
+
+/* Dark mode adjustments - Maintain scrollbar visibility */
+[data-mui-color-scheme="dark"] .board {
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+[data-mui-color-scheme="dark"] .board::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-mui-color-scheme="dark"] .board::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-mui-color-scheme="dark"] .board::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+[data-mui-color-scheme="dark"] .board::-webkit-scrollbar-thumb:active {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+[data-mui-color-scheme="dark"] .board::before {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+[data-mui-color-scheme="dark"] .board::after {
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 100%
+  );
+}
+
+[data-mui-color-scheme="dark"] .columnContent {
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.08);
+}
+
+[data-mui-color-scheme="dark"] .columnContent::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-mui-color-scheme="dark"] .columnContent::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .columnContent::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-mui-color-scheme="dark"] .columnContent::-webkit-scrollbar-thumb:active {
+  background-color: rgba(255, 255, 255, 0.6);
+}

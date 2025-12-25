@@ -24,6 +24,7 @@ import {
   Settings,
   Refresh,
 } from "@mui/icons-material";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./SplitView.module.css";
 
 // Sample file structure
@@ -143,6 +144,7 @@ const samplePreview = `<!DOCTYPE html>
 </html>`;
 
 export function SplitView() {
+  useDocumentTitle("Split View (Resizable Panels) - Layout Showcase");
   const [selectedFile, setSelectedFile] = useState<string | null>("1-3");
 
   const renderFileTree = (nodes: FileNode[], level = 0) => {

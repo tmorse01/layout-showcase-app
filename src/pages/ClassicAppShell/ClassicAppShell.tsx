@@ -29,6 +29,7 @@ import {
   Schedule as ScheduleIcon,
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./ClassicAppShell.module.css";
 
 const navItems = [
@@ -46,6 +47,7 @@ const navItems = [
 ];
 
 export function ClassicAppShell() {
+  useDocumentTitle("Classic App Shell - Layout Showcase");
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(false);
   const [marketingEmails, setMarketingEmails] = useState(false);

@@ -33,6 +33,7 @@ import {
   Cancel as CancelIcon,
   Pending as PendingIcon,
 } from "@mui/icons-material";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./TableFirst.module.css";
 
 // Sample data for the table
@@ -93,6 +94,7 @@ const generateSampleData = (): OrderData[] => {
 };
 
 export function TableFirst() {
+  useDocumentTitle("Table-First Layout - Layout Showcase");
   const [data] = useState<OrderData[]>(generateSampleData());
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
