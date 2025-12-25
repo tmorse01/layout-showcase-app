@@ -3,6 +3,7 @@ import { IconButton, Typography, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useHighlight } from "../../contexts/HighlightContext";
 import { ThemeToggleButton } from "../ThemeToggleButton/ThemeToggleButton";
+import { GitHubLink } from "../GitHubLink/GitHubLink";
 import styles from "./AppHeader.module.css";
 
 export interface AppHeaderProps {
@@ -44,6 +45,7 @@ export function AppHeader({
         </Link>
       </div>
       <div className={styles.right}>
+        <GitHubLink size="small" />
         <Tooltip
           title={
             highlightEnabled ? "Hide section labels" : "Show section labels"
