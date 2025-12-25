@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { BackToShowcase } from "../../components/BackToShowcase/BackToShowcase";
 import { defaultNavItems } from "../../config/sidebarData";
 
 export function RightInspector() {
@@ -15,7 +14,6 @@ export function RightInspector() {
       onRightRailToggle={() => setShowRightRail(!showRightRail)}
     >
       <div style={{ padding: "24px" }}>
-        <BackToShowcase />
         <h1>Right-Side Inspector Layout</h1>
         <p>
           Contextual details or settings shown in a toggleable right sidebar.

@@ -1,13 +1,8 @@
-import {
-  Menu as MenuIcon,
-  Brightness4,
-  Brightness7,
-  Label as LabelIcon,
-} from "@mui/icons-material";
+import { Menu as MenuIcon, Label as LabelIcon } from "@mui/icons-material";
 import { IconButton, Typography, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useTheme } from "../../contexts/ThemeContext";
 import { useHighlight } from "../../contexts/HighlightContext";
+import { ThemeToggleButton } from "../ThemeToggleButton/ThemeToggleButton";
 import styles from "./AppHeader.module.css";
 
 export interface AppHeaderProps {
@@ -28,7 +23,6 @@ export function AppHeader({
   onNavToggle,
   logo = "Layout Showcase",
 }: AppHeaderProps) {
-  const { mode, toggleMode } = useTheme();
   const { enabled: highlightEnabled, toggle: toggleHighlight } = useHighlight();
 
   return (
@@ -63,13 +57,7 @@ export function AppHeader({
             <LabelIcon />
           </IconButton>
         </Tooltip>
-        <IconButton
-          onClick={toggleMode}
-          aria-label="Toggle theme"
-          color="inherit"
-        >
-          {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
+        <ThemeToggleButton size="small" />
       </div>
     </header>
   );

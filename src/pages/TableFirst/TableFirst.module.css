@@ -1,0 +1,264 @@
+/**
+ * Table-First Layout
+ * 
+ * Demonstrates:
+ * - Dense data table as primary focus
+ * - Filters and actions in toolbar
+ * - Realistic content density
+ * - Responsive behavior
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  height: 100%;
+  padding: var(--spacing-md);
+  box-sizing: border-box;
+}
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xs);
+}
+
+.title {
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.addButton {
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* Toolbar */
+.toolbar {
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  background-color: var(--mui-palette-background-paper);
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.searchField {
+  min-width: 280px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.filterControl {
+  min-width: 140px;
+}
+
+.filterChip,
+.selectionChip {
+  height: 28px;
+  font-size: 0.75rem;
+}
+
+.actionButton {
+  text-transform: none;
+  font-weight: 500;
+}
+
+.moreButton {
+  padding: var(--spacing-xs);
+}
+
+/* Table Container */
+.tablePaper {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.tableContainer {
+  flex: 1;
+  overflow: auto;
+  max-height: calc(100vh - 400px);
+}
+
+/* Table Styling - Dense */
+.tableContainer table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.headerCell {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--mui-palette-text-secondary);
+  background-color: var(--mui-palette-background-paper);
+  white-space: nowrap;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.checkboxCell {
+  width: 48px;
+  padding: var(--spacing-xs) !important;
+}
+
+.tableRow {
+  transition: background-color 0.15s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--mui-palette-action-hover);
+}
+
+.tableRow td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.emailCell {
+  font-size: 0.8125rem;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusChip {
+  height: 24px;
+  font-size: 0.75rem;
+}
+
+.rowAction {
+  padding: var(--spacing-xs);
+  color: var(--mui-palette-text-secondary);
+}
+
+.rowAction:hover {
+  background-color: var(--mui-palette-action-hover);
+  color: var(--mui-palette-text-primary);
+}
+
+/* Pagination */
+.pagination {
+  border-top: 1px solid var(--mui-palette-divider);
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+/* Summary */
+.summary {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .emailCell {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .toolbarLeft {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbarRight {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .searchField {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .filterControl {
+    min-width: 100%;
+  }
+
+  .tableContainer {
+    max-height: calc(100vh - 500px);
+  }
+
+  /* Hide less important columns on mobile */
+  .tableContainer table th:nth-child(4),
+  .tableContainer table td:nth-child(4),
+  .tableContainer table th:nth-child(10),
+  .tableContainer table td:nth-child(10) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-xs);
+  }
+
+  .toolbar {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .headerCell,
+  .tableRow td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8125rem;
+  }
+
+  /* Hide more columns on very small screens */
+  .tableContainer table th:nth-child(3),
+  .tableContainer table td:nth-child(3),
+  .tableContainer table th:nth-child(9),
+  .tableContainer table td:nth-child(9) {
+    display: none;
+  }
+}
+
