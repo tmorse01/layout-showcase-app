@@ -76,7 +76,7 @@ export function Navigation({
         </div>
       ) : (
         <ul className={styles.navList}>
-          {items.map((item) => (
+          {items?.map((item) => (
             <li key={item.path} className={styles.navItem}>
               <NavLink
                 to={item.path}

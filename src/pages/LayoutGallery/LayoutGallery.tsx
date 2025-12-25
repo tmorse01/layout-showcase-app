@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Paper, Typography, Chip, Box, Tooltip, Popover } from "@mui/material";
+import { Paper, Typography, Chip, Box, Popover } from "@mui/material";
 import {
   Dashboard,
   ViewSidebar,
@@ -415,7 +415,6 @@ function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
             </Box>
           </Box>
         )}
-
       </Box>
 
       <Box className={styles.cardFooter}>
