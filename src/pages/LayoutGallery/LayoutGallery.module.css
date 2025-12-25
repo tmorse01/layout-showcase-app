@@ -109,7 +109,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* Use MUI CSS variables for theme-aware colors */
   border: 1px solid var(--mui-palette-divider);
   position: relative;
@@ -118,34 +118,11 @@
   min-height: 320px;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(0, 0, 0, 0.03) 0%,
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-}
-
 .card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-decoration: none;
-  border-color: transparent;
-}
-
-.card:hover::before {
-  opacity: 1;
+  border-color: var(--mui-palette-primary-main);
 }
 
 .cardIconContainer {
@@ -163,7 +140,7 @@
   justify-content: center;
   border-radius: 12px;
   background: var(--mui-palette-action-hover);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 28px;
 }
 
@@ -239,8 +216,8 @@
 .cardArrow {
   /* Use MUI CSS variable for theme-aware primary color */
   color: var(--mui-palette-primary-main);
-  opacity: 0.6;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
 }

@@ -336,11 +336,10 @@ function LayoutCard({ layout }: { layout: (typeof layoutMetadata)[0] }) {
       sx={{
         "&:hover": {
           "& .cardIcon": {
-            transform: "scale(1.08) rotate(3deg)",
             background: "var(--mui-palette-action-selected)",
           },
           "& .cardArrow": {
-            transform: "translateX(6px)",
+            transform: "translateX(4px)",
             opacity: 1,
           },
         },
