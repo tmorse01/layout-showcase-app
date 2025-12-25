@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { defaultNavGroups } from "../../config/sidebarData";
 import {
@@ -147,6 +147,101 @@ export function SplitView() {
   useDocumentTitle("Split View (Resizable Panels) - Layout Showcase");
   const [selectedFile, setSelectedFile] = useState<string | null>("1-3");
 
+  // Panel widths in pixels (left panel, middle panel, right panel uses remaining space)
+  const [leftPanelWidth, setLeftPanelWidth] = useState(280);
+  const [middlePanelWidth, setMiddlePanelWidth] = useState(0); // 0 means use 1fr (flexible)
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isResizingRef = useRef<"left" | "right" | null>(null);
+  const [isResizing, setIsResizing] = useState<"left" | "right" | null>(null);
+  const startXRef = useRef(0);
+  const startLeftWidthRef = useRef(0);
+  const startMiddleWidthRef = useRef(0);
+
+  // Handle mouse move for resizing
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizingRef.current || !containerRef.current) return;
+
+      const container = containerRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const containerWidth = containerRect.width;
+      const dragHandleWidth = 8;
+      const totalDragHandlesWidth = dragHandleWidth * 2;
+      const availableWidth = containerWidth - totalDragHandlesWidth;
+
+      const deltaX = e.clientX - startXRef.current;
+
+      if (isResizingRef.current === "left") {
+        // Resizing between left and middle panels
+        const newLeftWidth = Math.max(
+          200, // Minimum width
+          Math.min(availableWidth * 0.6, startLeftWidthRef.current + deltaX) // Maximum 60% of available width
+        );
+        setLeftPanelWidth(newLeftWidth);
+      } else if (isResizingRef.current === "right") {
+        // Resizing between middle and right panels
+        // Use the stored start middle width (which was calculated at drag start)
+        const currentLeftWidth = startLeftWidthRef.current;
+        const newMiddleWidth = Math.max(
+          200, // Minimum width
+          Math.min(
+            availableWidth - currentLeftWidth - 200, // Maximum (leave at least 200px for right)
+            startMiddleWidthRef.current + deltaX
+          )
+        );
+        setMiddlePanelWidth(newMiddleWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      isResizingRef.current = null;
+      setIsResizing(null);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
+    // Always attach listeners, but they only act when isResizingRef.current is set
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+  }, []);
+
+  const handleDragStart = (handle: "left" | "right", e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!containerRef.current) return;
+
+    isResizingRef.current = handle;
+    setIsResizing(handle);
+    startXRef.current = e.clientX;
+    startLeftWidthRef.current = leftPanelWidth;
+
+    // Calculate the actual middle panel width if it's currently flexible (0)
+    if (handle === "right" && middlePanelWidth === 0 && containerRef.current) {
+      const container = containerRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const containerWidth = containerRect.width;
+      const dragHandleWidth = 8;
+      const totalDragHandlesWidth = dragHandleWidth * 2;
+      const availableWidth = containerWidth - totalDragHandlesWidth;
+      // If middle panel is flexible, it shares space equally with right panel
+      startMiddleWidthRef.current = (availableWidth - leftPanelWidth) / 2;
+    } else {
+      startMiddleWidthRef.current = middlePanelWidth;
+    }
+
+    // Set cursor and prevent text selection
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+  };
+
   const renderFileTree = (nodes: FileNode[], level = 0) => {
     return nodes.map((node) => (
       <div key={node.id}>
@@ -180,11 +275,28 @@ export function SplitView() {
     ));
   };
 
+  // Calculate grid template columns
+  const getGridTemplateColumns = () => {
+    if (middlePanelWidth > 0) {
+      // Both panels have fixed widths
+      return `${leftPanelWidth}px 8px ${middlePanelWidth}px 8px 1fr`;
+    } else {
+      // Left panel fixed, middle and right share remaining space
+      return `${leftPanelWidth}px 8px 1fr 8px 1fr`;
+    }
+  };
+
   return (
     <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
       <div className={styles.container}>
         {/* Split View Container */}
-        <div className={styles.splitContainer}>
+        <div
+          ref={containerRef}
+          className={styles.splitContainer}
+          style={{
+            gridTemplateColumns: getGridTemplateColumns(),
+          }}
+        >
           {/* Left Panel - File Tree */}
           <Paper className={styles.panel} elevation={0}>
             <div className={styles.panelHeader}>
@@ -203,9 +315,15 @@ export function SplitView() {
             </div>
           </Paper>
 
-          {/* Drag Handle */}
-          <div className={styles.dragHandle} aria-label="Resize panels">
-            <DragIndicator className={styles.dragIcon} />
+          {/* Drag Handle - Left/Middle */}
+          <div
+            className={`${styles.dragHandle} ${
+              isResizing === "left" ? styles.dragging : ""
+            }`}
+            aria-label="Resize panels"
+            onMouseDown={(e) => handleDragStart("left", e)}
+          >
+            <DragIndicator className={styles.dragIcon} fontSize="small" />
           </div>
 
           {/* Middle Panel - Code Editor */}
@@ -240,9 +358,15 @@ export function SplitView() {
             </div>
           </Paper>
 
-          {/* Drag Handle */}
-          <div className={styles.dragHandle} aria-label="Resize panels">
-            <DragIndicator className={styles.dragIcon} />
+          {/* Drag Handle - Middle/Right */}
+          <div
+            className={`${styles.dragHandle} ${
+              isResizing === "right" ? styles.dragging : ""
+            }`}
+            aria-label="Resize panels"
+            onMouseDown={(e) => handleDragStart("right", e)}
+          >
+            <DragIndicator className={styles.dragIcon} fontSize="small" />
           </div>
 
           {/* Right Panel - Preview */}
@@ -283,10 +407,10 @@ export function SplitView() {
         {/* Info Section */}
         <Box className={styles.infoSection}>
           <Typography variant="body2" color="text.secondary">
-            <strong>Split View Layout:</strong> This layout demonstrates resizable
-            panels with visual drag handles. In a real implementation, users can
-            drag the handles to adjust panel widths. Common use cases include
-            code editors, design tools, and data analysis interfaces.
+            <strong>Split View Layout:</strong> This layout demonstrates
+            resizable panels with visual drag handles. In a real implementation,
+            users can drag the handles to adjust panel widths. Common use cases
+            include code editors, design tools, and data analysis interfaces.
           </Typography>
         </Box>
       </div>

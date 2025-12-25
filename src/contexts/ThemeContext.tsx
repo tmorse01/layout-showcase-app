@@ -87,14 +87,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
 
   // Create theme based on resolved mode
   const theme = useMemo(() => {
-    console.log(
-      "[ThemeContext] Creating theme with mode:",
-      mode,
-      "resolved to:",
-      resolvedMode
-    );
     return createAppTheme(resolvedMode);
-  }, [mode, resolvedMode]);
+  }, [resolvedMode]);
 
   useEffect(() => {
     // Save preference to localStorage
@@ -104,21 +98,17 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
       "data-mui-color-scheme",
       resolvedMode
     );
-    console.log("[ThemeContext] Mode changed to:", mode, "resolved:", resolvedMode);
   }, [mode, resolvedMode]);
 
   const setMode = (newMode: ThemeMode) => {
-    console.log("[ThemeContext] Setting mode to:", newMode);
     setModeState(newMode);
   };
 
   const toggleMode = () => {
-    console.log("[ThemeContext] Toggle called, current mode:", mode);
     // Cycle through: device -> light -> dark -> device
     setModeState((prev) => {
       const nextMode =
         prev === "device" ? "light" : prev === "light" ? "dark" : "device";
-      console.log("[ThemeContext] Toggling from", prev, "to", nextMode);
       return nextMode;
     });
   };

@@ -18,9 +18,9 @@
 }
 
 /* Split Container - Uses CSS Grid with fr units for flexible sizing */
+/* grid-template-columns is set dynamically via inline styles */
 .splitContainer {
   display: grid;
-  grid-template-columns: 280px 8px 1fr 8px 1fr;
   gap: 0;
   flex: 1;
   min-height: 600px;
@@ -148,6 +148,20 @@
   cursor: col-resize;
   user-select: none;
   transition: background-color 0.2s ease;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  /* Make the hit area larger for easier interaction using pseudo-element */
+}
+
+.dragHandle::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 0;
+  bottom: 0;
+  cursor: col-resize;
 }
 
 .dragHandle:hover {
@@ -160,11 +174,26 @@
 
 .dragIcon {
   color: var(--mui-palette-text-secondary);
-  font-size: 16px;
+  font-size: 10px;
   opacity: 0.5;
+  pointer-events: none;
+  transform: scale(0.8);
 }
 
 .dragHandle:hover .dragIcon {
+  opacity: 1;
+  color: var(--mui-palette-primary-main);
+}
+
+.dragHandle.dragging {
+  background-color: color-mix(
+    in srgb,
+    var(--mui-palette-primary-main) 20%,
+    transparent
+  );
+}
+
+.dragHandle.dragging .dragIcon {
   opacity: 1;
   color: var(--mui-palette-primary-main);
 }
@@ -279,4 +308,3 @@
     padding: var(--spacing-sm);
   }
 }
-
