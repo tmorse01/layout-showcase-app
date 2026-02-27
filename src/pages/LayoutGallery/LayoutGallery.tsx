@@ -18,6 +18,10 @@ import {
   Timeline,
   ViewKanban,
   ArrowForward,
+  SlideshowOutlined,
+  AccountTree,
+  TabUnselected,
+  ViewWeek,
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { FilterSidebar } from "../../components/FilterSidebar/FilterSidebar";
@@ -42,6 +46,10 @@ const layoutIcons: Record<string, React.ReactNode> = {
   "focus-mode": <Fullscreen />,
   timeline: <Timeline />,
   kanban: <ViewKanban />,
+  "drawer-main": <SlideshowOutlined />,
+  "breadcrumb-navigation": <AccountTree />,
+  "top-nav-tabs": <TabUnselected />,
+  "three-column": <ViewWeek />,
 };
 
 const tierColors: Record<string, { bg: string; text: string }> = {

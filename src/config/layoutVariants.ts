@@ -208,6 +208,50 @@ export const layoutMetadata: LayoutMetadata[] = [
     headerPattern: "app-only",
     features: ["Column layout", "Card organization", "Horizontal scrolling"],
   },
+  {
+    id: "drawer-main",
+    name: "Drawer + Main",
+    description:
+      "Material Design persistent navigation drawer alongside scrollable main content. Drawer opens and closes without pushing content.",
+    tier: "advanced",
+    route: "/layouts/drawer-main",
+    useCases: ["Material Design apps", "Mobile-first interfaces", "Navigation-heavy apps"],
+    headerPattern: "app-only",
+    features: ["Persistent drawer", "Toggleable navigation", "Material Design pattern"],
+  },
+  {
+    id: "breadcrumb-navigation",
+    name: "Breadcrumb Navigation",
+    description:
+      "Hierarchical content navigation with a prominent breadcrumb trail. Lets users drill into nested content and always know where they are.",
+    tier: "advanced",
+    route: "/layouts/breadcrumb-navigation",
+    useCases: ["File browsers", "CMS systems", "Deep content hierarchies"],
+    headerPattern: "app-only",
+    features: ["Interactive breadcrumbs", "Hierarchical navigation", "Path indicator"],
+  },
+  {
+    id: "top-nav-tabs",
+    name: "Top Navigation Tabs",
+    description:
+      "App-level tab navigation integrated directly into the app bar. Drives top-level section switching in a single persistent header.",
+    tier: "advanced",
+    route: "/layouts/top-nav-tabs",
+    useCases: ["Mobile-first apps", "Google-style interfaces", "Section switching"],
+    headerPattern: "app-only",
+    features: ["App-bar integrated tabs", "Top-level section switching", "Scrollable tabs"],
+  },
+  {
+    id: "three-column",
+    name: "3-Column Layout",
+    description:
+      "Left sidebar, main content, and right panel for analytics dashboards. All three columns visible simultaneously for dense data-rich interfaces.",
+    tier: "advanced",
+    route: "/layouts/three-column",
+    useCases: ["Analytics dashboards", "BI tools", "Data-rich interfaces"],
+    headerPattern: "app-only",
+    features: ["Three-column grid", "Sticky side panels", "Contextual right rail"],
+  },
 ];
 
 /**

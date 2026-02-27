@@ -15,6 +15,10 @@ import { CommandCentered } from "./pages/CommandCentered/CommandCentered";
 import { FocusMode } from "./pages/FocusMode/FocusMode";
 import { Timeline } from "./pages/Timeline/Timeline";
 import { Kanban } from "./pages/Kanban/Kanban";
+import { DrawerMain } from "./pages/DrawerMain/DrawerMain";
+import { BreadcrumbNavigation } from "./pages/BreadcrumbNavigation/BreadcrumbNavigation";
+import { TopNavTabs } from "./pages/TopNavTabs/TopNavTabs";
+import { ThreeColumn } from "./pages/ThreeColumn/ThreeColumn";
 import { ScrollRestoration } from "./components/ScrollRestoration/ScrollRestoration";
 
 function App() {
@@ -44,6 +48,10 @@ function App() {
         <Route path="/layouts/focus-mode" element={<FocusMode />} />
         <Route path="/layouts/timeline" element={<Timeline />} />
         <Route path="/layouts/kanban" element={<Kanban />} />
+        <Route path="/layouts/drawer-main" element={<DrawerMain />} />
+        <Route path="/layouts/breadcrumb-navigation" element={<BreadcrumbNavigation />} />
+        <Route path="/layouts/top-nav-tabs" element={<TopNavTabs />} />
+        <Route path="/layouts/three-column" element={<ThreeColumn />} />
       </Routes>
     </BrowserRouter>
   );

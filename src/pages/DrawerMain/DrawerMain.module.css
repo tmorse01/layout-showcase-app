@@ -1,0 +1,55 @@
+.root {
+  display: flex;
+  min-height: 100vh;
+}
+
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  min-height: 56px;
+}
+
+.appName {
+  font-weight: 700;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.content {
+  padding: 24px;
+  max-width: 1200px;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  .kpiGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

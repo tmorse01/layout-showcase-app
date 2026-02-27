@@ -14,6 +14,10 @@ import {
   Fullscreen,
   Timeline,
   ViewKanban,
+  SlideshowOutlined,
+  AccountTree,
+  TabUnselected,
+  ViewWeek,
 } from "@mui/icons-material";
 import type {
   NavigationItem,
@@ -38,6 +42,10 @@ const layoutIcons: Record<string, React.ReactNode> = {
   "focus-mode": <Fullscreen />,
   timeline: <Timeline />,
   kanban: <ViewKanban />,
+  "drawer-main": <SlideshowOutlined />,
+  "breadcrumb-navigation": <AccountTree />,
+  "top-nav-tabs": <TabUnselected />,
+  "three-column": <ViewWeek />,
 };
 
 /**
