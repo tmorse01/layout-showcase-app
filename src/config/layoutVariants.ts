@@ -4,7 +4,7 @@ import type { LayoutMetadata } from "../types/layout";
 export type { LayoutMetadata };
 
 /**
- * Metadata for all 15 layouts
+ * Metadata for all layouts
  * Used by the Layout Gallery and for documentation
  */
 export const layoutMetadata: LayoutMetadata[] = [
@@ -207,6 +207,50 @@ export const layoutMetadata: LayoutMetadata[] = [
     useCases: ["Project management", "Task boards", "Workflow visualization"],
     headerPattern: "app-only",
     features: ["Column layout", "Card organization", "Horizontal scrolling"],
+  },
+  {
+    id: "drawer-main",
+    name: "Drawer + Main Layout",
+    description:
+      "Material Design persistent drawer paired with a flexible main content area for app navigation.",
+    tier: "modern",
+    route: "/layouts/drawer-main",
+    useCases: ["Product consoles", "Admin apps", "Tooling interfaces"],
+    headerPattern: "app-only",
+    features: ["Persistent drawer", "Expandable content area", "Material pattern"],
+  },
+  {
+    id: "breadcrumb-navigation",
+    name: "Breadcrumb Navigation Layout",
+    description:
+      "Hierarchical navigation with breadcrumb trails to preserve user context within deep structures.",
+    tier: "essential",
+    route: "/layouts/breadcrumb-navigation",
+    useCases: ["Documentation", "Settings hierarchies", "Nested resources"],
+    headerPattern: "app-only",
+    features: ["Breadcrumb trail", "Hierarchy context", "Parent navigation"],
+  },
+  {
+    id: "top-navigation-tabs",
+    name: "Top Navigation Tabs Layout",
+    description:
+      "Top-level tab navigation for switching major content sections without leaving the current workspace.",
+    tier: "modern",
+    route: "/layouts/top-navigation-tabs",
+    useCases: ["Admin portals", "Analytics products", "Workspace switching"],
+    headerPattern: "app-only",
+    features: ["Top tabs", "Section switching", "Fast context changes"],
+  },
+  {
+    id: "three-column",
+    name: "3-Column Layout",
+    description:
+      "Three-pane experience with sidebar navigation, central work area, and right analytics panel.",
+    tier: "advanced",
+    route: "/layouts/three-column",
+    useCases: ["Monitoring dashboards", "Operations centers", "Data workflows"],
+    headerPattern: "app-only",
+    features: ["Left nav", "Main workspace", "Right analytics panel"],
   },
 ];
 

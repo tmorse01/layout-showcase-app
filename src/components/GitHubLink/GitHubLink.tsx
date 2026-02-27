@@ -20,6 +20,12 @@ function kebabToPascal(kebab: string): string {
  */
 function getGitHubUrl(pathname: string): string {
   const repoBase = "https://github.com/tmorse01/layout-showcase-app";
+  const routeComponentOverrides: Record<string, string> = {
+    "drawer-main": "DrawerMainLayout",
+    "breadcrumb-navigation": "BreadcrumbNavigationLayout",
+    "top-navigation-tabs": "TopNavigationTabsLayout",
+    "three-column": "ThreeColumnLayout",
+  };
 
   // Showcase page
   if (pathname === "/") {
@@ -30,7 +36,7 @@ function getGitHubUrl(pathname: string): string {
   const layoutMatch = pathname.match(/^\/layouts\/(.+)$/);
   if (layoutMatch) {
     const layoutId = layoutMatch[1];
-    const componentName = kebabToPascal(layoutId);
+    const componentName = routeComponentOverrides[layoutId] || kebabToPascal(layoutId);
     return `${repoBase}/blob/master/src/pages/${componentName}/${componentName}.tsx`;
   }
 
@@ -69,4 +75,3 @@ export function GitHubLink({ size = "small" }: GitHubLinkProps) {
     </Tooltip>
   );
 }
-
