@@ -107,6 +107,25 @@ const recentActivity: Record<string, string[]> = {
   ],
 };
 
+const initiatives: Record<string, Array<{ initiative: string; owner: string; due: string; stage: string }>> = {
+  overview: [
+    { initiative: "Q2 Planning Readout", owner: "Finance Ops", due: "Mar 12", stage: "In Review" },
+    { initiative: "Executive KPI Alignment", owner: "Strategy", due: "Mar 18", stage: "On Track" },
+  ],
+  revenue: [
+    { initiative: "Enterprise Upsell Sprint", owner: "Sales", due: "Mar 09", stage: "At Risk" },
+    { initiative: "Pricing Model Validation", owner: "RevOps", due: "Mar 22", stage: "On Track" },
+  ],
+  growth: [
+    { initiative: "Lifecycle Nurture Refresh", owner: "Growth", due: "Mar 15", stage: "On Track" },
+    { initiative: "Referral Program Pilot", owner: "Marketing", due: "Mar 25", stage: "Planned" },
+  ],
+  customers: [
+    { initiative: "Renewal Risk Blitz", owner: "Success", due: "Mar 11", stage: "In Progress" },
+    { initiative: "VOC Theme Synthesis", owner: "Product", due: "Mar 21", stage: "On Track" },
+  ],
+};
+
 export function DrawerMain() {
   useDocumentTitle("Drawer + Main Layout - Layout Showcase");
   const [drawerOpen, setDrawerOpen] = useState(true);
@@ -213,6 +232,31 @@ export function DrawerMain() {
               </List>
             </Paper>
           </div>
+
+          <Paper className={styles.panel} elevation={1}>
+            <Typography variant="subtitle1">Open Initiatives</Typography>
+            <Divider sx={{ my: 1 }} />
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Initiative</TableCell>
+                  <TableCell>Owner</TableCell>
+                  <TableCell>Due</TableCell>
+                  <TableCell>Stage</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {initiatives[activeSection].map((initiative) => (
+                  <TableRow key={initiative.initiative}>
+                    <TableCell>{initiative.initiative}</TableCell>
+                    <TableCell>{initiative.owner}</TableCell>
+                    <TableCell>{initiative.due}</TableCell>
+                    <TableCell>{initiative.stage}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
         </Box>
       </Box>
     </Box>

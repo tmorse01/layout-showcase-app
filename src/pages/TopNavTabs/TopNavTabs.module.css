@@ -49,3 +49,24 @@
 .kpiCard {
   padding: 12px;
 }
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.subPanel {
+  padding: 12px;
+}
+
+.listItem {
+  padding-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}

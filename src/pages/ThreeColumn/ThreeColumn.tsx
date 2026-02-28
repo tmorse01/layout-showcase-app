@@ -95,6 +95,13 @@ const customers: Record<string, string[]> = {
   Trials: ["Quartz AI", "Pilot Labs", "Nimbus Studio"],
 };
 
+const notes: Record<string, string[]> = {
+  Enterprise: ["Northstar expansion package pending signature.", "Atlas account plan updated after exec call."],
+  "Mid-Market": ["Acorn escalation ownership moved to pod B.", "Echo Labs usage trend improving for week-over-week."],
+  SMB: ["Driftline save plan shared with support lead.", "Willow Apps completed all onboarding milestones."],
+  Trials: ["Parcel Mind requested sandbox extension.", "Quartz AI passed initial integration checklist."],
+};
+
 export function ThreeColumn() {
   useDocumentTitle("3-Column Layout - Layout Showcase");
   const [activeSegment, setActiveSegment] = useState(segments[0]);
@@ -190,6 +197,15 @@ export function ThreeColumn() {
               ))}
             </TableBody>
           </Table>
+          <Divider sx={{ my: 1.5 }} />
+          <Typography variant="subtitle2" gutterBottom>
+            Segment Notes
+          </Typography>
+          <List dense>
+            {notes[activeSegment].map((note) => (
+              <ListItemText key={note} primary={note} />
+            ))}
+          </List>
         </Paper>
 
         <Paper className={styles.rightColumn} elevation={1}>

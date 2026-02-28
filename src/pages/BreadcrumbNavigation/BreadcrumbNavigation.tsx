@@ -108,6 +108,12 @@ const tree: Node = {
   ],
 };
 
+const notesBySection: Record<string, string[]> = {
+  Products: ["Weekly release sync every Tuesday.", "Design QA checklist required before launch."],
+  Customers: ["Enterprise reviews tracked in shared workspace.", "Escalations are triaged daily at 10:00 AM."],
+  Engineering: ["API contracts are versioned before rollout.", "Platform SLO report updates every Friday."],
+};
+
 export function BreadcrumbNavigation() {
   useDocumentTitle("Breadcrumb Navigation Layout - Layout Showcase");
   const [path, setPath] = useState<number[]>([]);
@@ -132,6 +138,12 @@ export function BreadcrumbNavigation() {
     });
     return nodes;
   }, [path]);
+
+  const topSection = breadcrumbNodes[1]?.name;
+  const sectionNotes = notesBySection[topSection] ?? [
+    "Use the tree to drill into folders and files.",
+    "Breadcrumb links can jump to any ancestor level.",
+  ];
 
   return (
     <AppFrame showAppHeader showNav navGroups={defaultNavGroups}>
@@ -194,6 +206,14 @@ export function BreadcrumbNavigation() {
               This folder has no subfolders.
             </Typography>
           )}
+          <Box sx={{ px: 1, pt: 1 }}>
+            <Typography variant="subtitle2">Workspace Notes</Typography>
+            {sectionNotes.map((note) => (
+              <Typography key={note} variant="body2" color="text.secondary">
+                • {note}
+              </Typography>
+            ))}
+          </Box>
         </Paper>
       </div>
     </AppFrame>

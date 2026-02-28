@@ -28,6 +28,20 @@ const sections = [
   },
 ] as const;
 
+const highlights = [
+  ["Revenue forecast confidence increased to 89%.", "Board packet drafted for next Monday."],
+  ["Top 20 accounts completed quarterly health checks.", "Renewal playbook updated for enterprise CSMs."],
+  ["Queue latency improved after worker pool tuning.", "Incident response drill completed in 17 minutes."],
+  ["SSO policy defaults tightened for new workspaces.", "Permission audit queue reduced by 43% this week."],
+];
+
+const upcoming = [
+  ["Executive review", "Mon 9:00 AM"],
+  ["Customer strategy sync", "Tue 1:30 PM"],
+  ["Ops reliability review", "Wed 11:00 AM"],
+  ["Access governance check", "Thu 3:00 PM"],
+];
+
 export function TopNavTabs() {
   useDocumentTitle("Top Navigation Tabs Layout - Layout Showcase");
   const [activeTab, setActiveTab] = useState(0);
@@ -78,6 +92,29 @@ export function TopNavTabs() {
                 Weekly Change
               </Typography>
               <Typography variant="h5">{["+2.4%", "+6", "+0.1%", "+3"][activeTab]}</Typography>
+            </Paper>
+          </Box>
+          <Box className={styles.contentGrid}>
+            <Paper className={styles.subPanel} variant="outlined">
+              <Typography variant="subtitle2" gutterBottom>
+                Highlights
+              </Typography>
+              {highlights[activeTab].map((item) => (
+                <Typography key={item} variant="body2" color="text.secondary" className={styles.listItem}>
+                  {item}
+                </Typography>
+              ))}
+            </Paper>
+            <Paper className={styles.subPanel} variant="outlined">
+              <Typography variant="subtitle2" gutterBottom>
+                Upcoming
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {upcoming[activeTab][0]}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {upcoming[activeTab][1]}
+              </Typography>
             </Paper>
           </Box>
         </Paper>
