@@ -1,0 +1,36 @@
+.headerWrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+  padding-right: 8px;
+}
+
+.tabs {
+  min-height: 64px;
+}
+
+.tabs :global(.MuiTab-root) {
+  min-height: 64px;
+}
+
+.container {
+  padding: 24px;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.kpiCard {
+  padding: 12px;
+}

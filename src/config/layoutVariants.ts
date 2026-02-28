@@ -4,7 +4,7 @@ import type { LayoutMetadata } from "../types/layout";
 export type { LayoutMetadata };
 
 /**
- * Metadata for all 15 layouts
+ * Metadata for all layouts
  * Used by the Layout Gallery and for documentation
  */
 export const layoutMetadata: LayoutMetadata[] = [
@@ -76,7 +76,7 @@ export const layoutMetadata: LayoutMetadata[] = [
     headerPattern: "app-page",
     features: ["Step indicators", "Sticky actions", "Progress tracking"],
   },
-  // Top 10 (Modern Set) - Adds 5 more
+  // Modern Set
   {
     id: "collapsible-sidebar",
     name: "Collapsible Sidebar",
@@ -144,7 +144,51 @@ export const layoutMetadata: LayoutMetadata[] = [
     headerPattern: "app-only",
     features: ["Prominent search", "Search results", "Filter integration"],
   },
-  // Top 15 (Advanced/Specialized) - Adds 5 more
+  {
+    id: "drawer-main",
+    name: "Drawer + Main",
+    description:
+      "Material Design persistent navigation drawer with toggle control, active state tracking, and KPI-focused dashboard content.",
+    tier: "modern",
+    route: "/layouts/drawer-main",
+    useCases: ["Operations dashboards", "Admin consoles", "SaaS navigation"],
+    headerPattern: "app-only",
+    features: ["Persistent drawer", "Active section state", "KPI dashboard"],
+  },
+  {
+    id: "breadcrumb-navigation",
+    name: "Breadcrumb Navigation",
+    description:
+      "File-browser-style hierarchical drill-down with interactive breadcrumb trail, back button, and path indicator.",
+    tier: "modern",
+    route: "/layouts/breadcrumb-navigation",
+    useCases: ["File explorers", "Knowledge bases", "Nested navigation"],
+    headerPattern: "app-only",
+    features: ["Interactive breadcrumbs", "Back navigation", "Path indicator"],
+  },
+  {
+    id: "top-nav-tabs",
+    name: "Top Navigation Tabs",
+    description:
+      "App-bar-integrated tabs for switching top-level sections, distinct from page-level tabbed content patterns.",
+    tier: "modern",
+    route: "/layouts/top-nav-tabs",
+    useCases: ["Suite navigation", "Multi-product apps", "Portal sections"],
+    headerPattern: "app-only",
+    features: ["Integrated top tabs", "Section switching", "App-bar pattern"],
+  },
+  {
+    id: "three-column",
+    name: "3-Column Layout",
+    description:
+      "Three-column workspace with a left segment selector, central KPI/data table, and right live-alerts/customers panel using sticky side columns.",
+    tier: "modern",
+    route: "/layouts/three-column",
+    useCases: ["Customer success", "Revenue ops", "Analyst workflows"],
+    headerPattern: "app-only",
+    features: ["Sticky side columns", "Segmented views", "KPI table center"],
+  },
+  // Advanced & Specialized
   {
     id: "right-inspector",
     name: "Right Inspector",

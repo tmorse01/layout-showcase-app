@@ -1,0 +1,48 @@
+.pageRoot {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--mui-palette-background-default);
+}
+
+.topBar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--mui-palette-divider);
+  background: var(--mui-palette-background-paper);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
+  transition: margin 0.2s ease;
+  overflow: auto;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.kpiCard {
+  padding: 16px;
+}
