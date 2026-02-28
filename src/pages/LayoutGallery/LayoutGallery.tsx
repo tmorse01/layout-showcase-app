@@ -18,6 +18,9 @@ import {
   Timeline,
   ViewKanban,
   ArrowForward,
+  AccountTree,
+  Apps,
+  ViewWeek,
 } from "@mui/icons-material";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
 import { FilterSidebar } from "../../components/FilterSidebar/FilterSidebar";
@@ -42,6 +45,10 @@ const layoutIcons: Record<string, React.ReactNode> = {
   "focus-mode": <Fullscreen />,
   timeline: <Timeline />,
   kanban: <ViewKanban />,
+  "drawer-main": <ViewSidebar />,
+  "breadcrumb-navigation": <AccountTree />,
+  "top-nav-tabs": <Apps />,
+  "three-column": <ViewWeek />,
 };
 
 const tierColors: Record<string, { bg: string; text: string }> = {

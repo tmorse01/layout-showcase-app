@@ -1,0 +1,72 @@
+.headerWrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 64px;
+  padding: 0 16px;
+}
+
+.tabs {
+  min-height: 64px;
+  justify-self: center;
+}
+
+.tabs :global(.MuiTab-root) {
+  min-height: 64px;
+}
+
+.logo {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.headerSpacer {
+  justify-self: end;
+  width: 24px;
+  height: 24px;
+}
+
+.container {
+  padding: 24px;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.kpiCard {
+  padding: 12px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.subPanel {
+  padding: 12px;
+}
+
+.listItem {
+  padding-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}

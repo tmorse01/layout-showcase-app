@@ -1,0 +1,56 @@
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  gap: 16px;
+  padding: 16px;
+  align-items: start;
+}
+
+.leftColumn,
+.rightColumn,
+.mainColumn {
+  padding: 12px;
+}
+
+.leftColumn,
+.rightColumn {
+  position: sticky;
+  top: 16px;
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.summaryCard {
+  padding: 10px;
+}
+
+.alertItem {
+  padding-bottom: 8px;
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    position: static;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
