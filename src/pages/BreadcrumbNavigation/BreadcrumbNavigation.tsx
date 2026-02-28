@@ -12,7 +12,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { ChevronRight, Folder } from "@mui/icons-material";
+import { ChevronRight, Description, Folder } from "@mui/icons-material";
 import { defaultNavGroups } from "../../config/sidebarData";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./BreadcrumbNavigation.module.css";
@@ -20,6 +20,7 @@ import styles from "./BreadcrumbNavigation.module.css";
 interface Node {
   name: string;
   children?: Node[];
+  kind?: "folder" | "file";
 }
 
 const tree: Node = {
@@ -27,15 +28,82 @@ const tree: Node = {
   children: [
     {
       name: "Products",
-      children: [{ name: "2026" }, { name: "Roadmap" }, { name: "Launch Assets" }],
+      children: [
+        {
+          name: "Mobile App",
+          children: [
+            {
+              name: "iOS",
+              children: [
+                {
+                  name: "Sprint 18",
+                  children: [{ name: "stories.md", kind: "file" }, { name: "qa-results.csv", kind: "file" }],
+                },
+                { name: "Design", children: [{ name: "tokens.json", kind: "file" }] },
+              ],
+            },
+            {
+              name: "Android",
+              children: [
+                {
+                  name: "Release Train",
+                  children: [{ name: "v3.2", children: [{ name: "notes.md", kind: "file" }] }],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Web Platform",
+          children: [
+            {
+              name: "Roadmap",
+              children: [{ name: "Q3", children: [{ name: "epics.md", kind: "file" }] }, { name: "Q4" }],
+            },
+            { name: "Launch Assets", children: [{ name: "deck-v6.pptx", kind: "file" }] },
+          ],
+        },
+      ],
     },
     {
       name: "Customers",
-      children: [{ name: "Enterprise" }, { name: "SMB" }, { name: "Trials" }],
+      children: [
+        {
+          name: "Enterprise",
+          children: [
+            {
+              name: "Northstar Bank",
+              children: [{ name: "QBR", children: [{ name: "2026-Q1.pdf", kind: "file" }] }, { name: "Renewal" }],
+            },
+            {
+              name: "Atlas Logistics",
+              children: [{ name: "Escalations", children: [{ name: "incident-441.txt", kind: "file" }] }],
+            },
+          ],
+        },
+        {
+          name: "SMB",
+          children: [{ name: "Playbooks", children: [{ name: "onboarding.md", kind: "file" }] }, { name: "Campaigns" }],
+        },
+        { name: "Trials", children: [{ name: "Week 1" }, { name: "Week 2" }] },
+      ],
     },
     {
       name: "Engineering",
-      children: [{ name: "API" }, { name: "Frontend" }, { name: "Platform" }],
+      children: [
+        {
+          name: "API",
+          children: [{ name: "Auth", children: [{ name: "contracts.yaml", kind: "file" }] }, { name: "Billing" }],
+        },
+        {
+          name: "Frontend",
+          children: [{ name: "Design System", children: [{ name: "figma-links.md", kind: "file" }] }, { name: "App Shell" }],
+        },
+        {
+          name: "Platform",
+          children: [{ name: "Observability", children: [{ name: "slo-report.md", kind: "file" }] }, { name: "Infra" }],
+        },
+      ],
     },
   ],
 };
@@ -86,6 +154,7 @@ export function BreadcrumbNavigation() {
             ))}
           </Breadcrumbs>
           <Chip label={`/${breadcrumbNodes.map((node) => node.name.toLowerCase()).join("/")}`} size="small" />
+          <Chip label={`Depth: ${path.length}`} size="small" variant="outlined" />
         </Paper>
 
         <Paper className={styles.browser} elevation={1}>
@@ -100,15 +169,23 @@ export function BreadcrumbNavigation() {
             <List disablePadding>
               {currentNode.children.map((child, index) => (
                 <ListItemButton
-                  key={child.name}
+                  key={`${child.name}-${index}`}
                   onClick={() => {
                     if (child.children) {
                       setPath((prev) => [...prev, index]);
                     }
                   }}
                 >
-                  <Folder fontSize="small" color="action" />
-                  <ListItemText primary={child.name} sx={{ ml: 1.5 }} />
+                  {child.children ? (
+                    <Folder fontSize="small" color="action" />
+                  ) : (
+                    <Description fontSize="small" color="disabled" />
+                  )}
+                  <ListItemText
+                    primary={child.name}
+                    secondary={child.children ? `${child.children.length} items` : "File"}
+                    sx={{ ml: 1.5 }}
+                  />
                 </ListItemButton>
               ))}
             </List>

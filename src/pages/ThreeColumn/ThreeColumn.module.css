@@ -25,6 +25,17 @@
   margin-bottom: 8px;
 }
 
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.summaryCard {
+  padding: 10px;
+}
+
 .alertItem {
   padding-bottom: 8px;
 }
@@ -37,5 +48,9 @@
   .leftColumn,
   .rightColumn {
     position: static;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
   }
 }

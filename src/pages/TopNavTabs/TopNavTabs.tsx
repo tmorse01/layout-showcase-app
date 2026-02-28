@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AppFrame } from "../../components/AppFrame/AppFrame";
-import { AppHeader } from "../../components/AppHeader/AppHeader";
 import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import styles from "./TopNavTabs.module.css";
 
@@ -38,7 +38,9 @@ export function TopNavTabs() {
       showNav={false}
       appHeaderContent={
         <div className={styles.headerWrap}>
-          <AppHeader logo="Top Navigation Tabs" />
+          <Link to="/" className={styles.logo}>
+            Top Navigation Tabs
+          </Link>
           <Tabs
             value={activeTab}
             onChange={(_event, value: number) => setActiveTab(value)}
@@ -52,6 +54,7 @@ export function TopNavTabs() {
               <Tab key={section.id} label={section.title} />
             ))}
           </Tabs>
+          <Box className={styles.headerSpacer} />
         </div>
       }
     >

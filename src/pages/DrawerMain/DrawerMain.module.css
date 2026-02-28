@@ -41,8 +41,41 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
+  margin-bottom: 16px;
 }
 
 .kpiCard {
   padding: 16px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.panel {
+  padding: 12px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.activityItem {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.activityItem:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
 }

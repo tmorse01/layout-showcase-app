@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
   Box,
+  Chip,
+  Divider,
   Drawer,
   IconButton,
   List,
@@ -8,6 +10,11 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -51,6 +58,52 @@ const kpis: Record<string, Array<{ label: string; value: string; change: string 
     { label: "Enterprise", value: "248", change: "+12" },
     { label: "SMB", value: "1,932", change: "+84" },
     { label: "NPS", value: "51", change: "+3" },
+  ],
+};
+
+const healthRows: Record<string, Array<{ metric: string; value: string; target: string; status: string }>> = {
+  overview: [
+    { metric: "Activation Rate", value: "67%", target: "65%", status: "On track" },
+    { metric: "Pipeline Coverage", value: "2.8x", target: "2.5x", status: "Healthy" },
+    { metric: "Support SLA", value: "98.7%", target: "98%", status: "Healthy" },
+  ],
+  revenue: [
+    { metric: "Gross Margin", value: "78%", target: "75%", status: "On track" },
+    { metric: "Expansion Mix", value: "32%", target: "30%", status: "Healthy" },
+    { metric: "Discount Rate", value: "7.5%", target: "<10%", status: "Healthy" },
+  ],
+  growth: [
+    { metric: "Sales Velocity", value: "41 days", target: "45 days", status: "Healthy" },
+    { metric: "Trial Conversion", value: "18.4%", target: "17%", status: "On track" },
+    { metric: "Win Rate", value: "31%", target: "30%", status: "Healthy" },
+  ],
+  customers: [
+    { metric: "Renewal Rate", value: "94.2%", target: "92%", status: "Healthy" },
+    { metric: "Adoption Score", value: "73", target: "70", status: "On track" },
+    { metric: "Open Escalations", value: "4", target: "<6", status: "Healthy" },
+  ],
+};
+
+const recentActivity: Record<string, string[]> = {
+  overview: [
+    "Executive dashboard snapshot published to leadership.",
+    "Weekly digest sent to all product stakeholders.",
+    "Forecast confidence raised from 86% to 89%.",
+  ],
+  revenue: [
+    "Northstar expansion opportunity advanced to commit stage.",
+    "Atlas logistics invoice reconciliation completed.",
+    "Quarterly pricing review prepared for finance.",
+  ],
+  growth: [
+    "SMB campaign experiment B outperformed control by 12%.",
+    "New onboarding checklist rolled out to all trial users.",
+    "Lifecycle emails refreshed for churn-risk cohorts.",
+  ],
+  customers: [
+    "Customer health score recalculated for enterprise accounts.",
+    "Success team tagged 6 accounts for proactive outreach.",
+    "NPS feedback digest shared with support and product.",
   ],
 };
 
@@ -120,6 +173,45 @@ export function DrawerMain() {
                 </Typography>
               </Paper>
             ))}
+          </div>
+
+          <div className={styles.contentGrid}>
+            <Paper className={styles.panel} elevation={1}>
+              <div className={styles.panelHeader}>
+                <Typography variant="subtitle1">Operational Health</Typography>
+                <Chip size="small" label="Live" color="success" />
+              </div>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Metric</TableCell>
+                    <TableCell>Value</TableCell>
+                    <TableCell>Target</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {healthRows[activeSection].map((row) => (
+                    <TableRow key={row.metric}>
+                      <TableCell>{row.metric}</TableCell>
+                      <TableCell>{row.value}</TableCell>
+                      <TableCell>{row.target}</TableCell>
+                      <TableCell>{row.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+
+            <Paper className={styles.panel} elevation={1}>
+              <Typography variant="subtitle1">Recent Activity</Typography>
+              <Divider sx={{ my: 1 }} />
+              <List disablePadding>
+                {recentActivity[activeSection].map((activity) => (
+                  <ListItemText key={activity} primary={activity} className={styles.activityItem} />
+                ))}
+              </List>
+            </Paper>
           </div>
         </Box>
       </Box>
